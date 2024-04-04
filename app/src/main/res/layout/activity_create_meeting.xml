@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#949398"
+    tools:context=".CreateCarMeetActivity">
+
+    <ImageView
+        android:id="@+id/ivExit"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:src="@drawable/back" />
+
+    <TextView
+        android:id="@+id/tvText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivExit"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Enter your details for the meeting below"
+        android:textAlignment="center"
+        android:textColor="#d9a737"
+        android:textSize="30dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvText"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:id="@+id/btnSelectDate"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/custom_yellow_button"
+                android:text="Select Date"
+                android:textAllCaps="false"
+                android:textColor="#d9a737"
+                android:textSize="25dp" />
+
+            <Button
+                android:id="@+id/btnSelectTime"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:backgroundTint="#d9a737"
+                android:text="Select Time"
+                android:textAllCaps="false"
+                android:textColor="#949398"
+                android:textSize="25dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <Button
+                android:id="@+id/btnAddTags"
+                android:layout_width="154dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#d9a737"
+                android:text="Add Tags"
+                android:textAllCaps="false"
+                android:textColor="#949398"
+                android:textSize="25dp" />
+
+            <Button
+                android:id="@+id/btnShowTags"
+                android:layout_width="151dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:background="@drawable/custom_yellow_button"
+                android:text="Show Tags"
+                android:textAllCaps="false"
+                android:textColor="#d9a737"
+                android:textSize="25dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/tvIsPublic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Private"
+                android:textColor="#d9a737"
+                android:textSize="25dp" />
+
+            <Switch
+                android:id="@+id/switchSettings"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnLocation"
+            android:layout_width="125dp"
+            android:layout_height="50dp"
+            android:text="Add Location"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:textAllCaps="false"
+            android:background="@drawable/custom_button"
+            android:textColor="#949398"
+            android:textSize="20sp"
+            android:onClick="onLocationButtonClick"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Done"
+            android:textSize="19sp"
+            android:textAllCaps="false"
+            android:id="@+id/btnDone"
+            android:textColor="#d9a737"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/custom_yellow_button" />
+
+        <TextView
+            android:id="@+id/tvError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="80dp"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="#FF0000"
+            android:textSize="20dp" />
+    </LinearLayout>
+
+</RelativeLayout>

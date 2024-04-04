@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#949398"
+    android:gravity="top"
+    android:orientation="vertical"
+    tools:context=".SignupActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/ivExit"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="top"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/back" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Enter your details below"
+        android:textAlignment="center"
+        android:textColor="#d9a737"
+        android:textSize="25sp" />
+
+    <EditText
+        android:id="@+id/etFirstName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:hint="First Name"
+        android:backgroundTint="#d9a737"
+        android:textColorHint="#d9a737"/>
+
+    <EditText
+        android:id="@+id/etLastName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:hint="Last Name"
+        android:backgroundTint="#d9a737"
+        android:textColorHint="#d9a737"/>
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:hint="Email Address"
+        android:backgroundTint="#d9a737"
+        android:textColorHint="#d9a737"/>
+
+    <EditText
+        android:id="@+id/etUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:hint="Username"
+        android:backgroundTint="#d9a737"
+        android:textColorHint="#d9a737"/>
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:backgroundTint="#d9a737"
+        android:textColorHint="#d9a737"/>
+    <Button
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:text="Finish"
+        android:onClick="signUpButtonClick"
+        android:id="@+id/btnFinish"
+        android:layout_gravity="center"
+        android:textSize="18sp"
+        android:textAllCaps="false"
+        android:textColor="#949398"
+        android:background="@drawable/custom_button"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        android:id="@+id/tvError"
+        android:layout_gravity="center"
+        android:textColor="#FF0000"/>
+</LinearLayout>

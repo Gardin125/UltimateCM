@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#949398"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".LoginActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="UltimateCM"
+        android:textColor="#d9a737"
+        android:textSize="25dp" />
+
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#d9a737"
+        android:hint="Email"
+        android:textColorHint="#d9a737"
+        android:textSize="25dp" />
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#d9a737"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColorHint="#d9a737"
+        android:textSize="25dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:background="@drawable/custom_button"
+            android:text="Login"
+            android:textAllCaps="false"
+            android:textColor="#949398"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btnSignUp"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginLeft="110dp"
+            android:background="@drawable/custom_yellow_button"
+            android:text="Sign Up"
+            android:textAllCaps="false"
+            android:textColor="#d9a737"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</LinearLayout>

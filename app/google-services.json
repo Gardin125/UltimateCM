@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "720473034638",
+    "project_id": "ultimatecm-41c1f",
+    "storage_bucket": "ultimatecm-41c1f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720473034638:android:34979d35d8a5ff26e09edf",
+        "android_client_info": {
+          "package_name": "com.example.ultimatecm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZb386Bn-MW0JbTi-skvBg59kE77Ix-f8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

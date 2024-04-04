@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#949398"
+    tools:context=".CreateClubActivity">
+
+    <ImageView
+        android:id="@+id/ivExit"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="top"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:clickable="true"
+        android:src="@drawable/back" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter the details for the club below"
+            android:textAlignment="center"
+            android:textColor="#d9a737"
+            android:textSize="25dp"
+            android:textStyle="bold"/>
+
+
+        <EditText
+            android:id="@+id/etClubName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#d9a737"
+            android:hint="Club Name"
+            android:textColorHint="#d9a737" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/etClubDescription"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#d9a737"
+                android:hint="Club Description"
+                android:textColorHint="#d9a737"
+                android:maxLength="50"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0/50"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/tvMaxLength"
+                android:textSize="20sp"
+                android:layout_marginTop="5dp"
+                android:textColor="#d9a737"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvIsPublic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:text="Private"
+                android:textColor="#d9a737"
+                android:textSize="25dp" />
+
+            <Switch
+                android:id="@+id/schSettings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btnFinish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:textSize="20dp"
+            android:background="@drawable/custom_yellow_button"
+            android:onClick="signUpButtonClick"
+            android:text="Finish"
+            android:textAllCaps="false"
+            android:textColor="#d9a737" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:text=""
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:id="@+id/tvError"
+            android:textColor="#FF0000"/>
+    </LinearLayout>
+
+</RelativeLayout>

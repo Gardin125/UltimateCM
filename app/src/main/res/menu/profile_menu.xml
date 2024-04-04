@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_personal_info"
+        android:title="Personal Info"/>
+    <item
+        android:id="@+id/action_security"
+        android:title="Security"/>
+    <item
+        android:id="@+id/action_my_meetings"
+        android:title="My CarMeets"/>
+    <item
+        android:id="@+id/action_my_clubs"
+        android:title="My Clubs"/>
+    <item
+        android:id="@+id/action_log_out"
+        android:title="Log Out"/>
+
+</menu>

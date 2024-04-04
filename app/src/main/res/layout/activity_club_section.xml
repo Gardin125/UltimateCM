@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#949398"
+    android:gravity="top"
+    android:orientation="vertical"
+    tools:context=".ClubSectionActivity">
+
+    <!-- Three Parts: Left, Middle, and Right -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/ivExit"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:clickable="true"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/back"/>
+
+        <!-- Middle Part with "Club Section:" -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:layout_marginTop="7dp"
+            android:text="Club Section:     "
+            android:textColor="#d9a737"
+            android:textSize="24sp" />
+
+        <!-- Right Part, Nothing Here -->
+
+    </LinearLayout>
+
+    <!-- Image and Overlay Group -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        >
+
+        <!-- Add TextView for Text on the Image -->
+
+        <ImageView
+            android:id="@+id/ivBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/cmimage" />
+
+        <!-- Overlay View -->
+        <View
+            android:id="@+id/overlay"
+            android:layout_width="match_parent"
+            android:layout_height="285dp"
+            android:layout_gravity="center"
+            android:background="#C6000000" />
+
+        <TextView
+            android:id="@+id/tvOverlayText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textAlignment="center"
+            android:text="Select if you want to join a club or create one"
+            android:textColor="#d9a737"
+            android:textSize="24sp"
+            android:layout_gravity="center"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center|bottom"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnCreateClub"
+            android:layout_width="125dp"
+            android:layout_height="55dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/custom_button"
+            android:text="Create"
+            android:textAllCaps="false"
+            android:textColor="#949398"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btnJoinClub"
+            android:layout_width="125dp"
+            android:layout_height="55dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/custom_yellow_button"
+            android:text="Join"
+            android:textAllCaps="false"
+            android:textColor="#d9a737"
+            android:textSize="18sp" />
+
+    </LinearLayout> <!-- 80 represents 50% transparency -->
+</RelativeLayout>
