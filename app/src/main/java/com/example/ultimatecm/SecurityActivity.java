@@ -40,7 +40,7 @@ public class SecurityActivity extends AppCompatActivity {
         if (flag) {
             flag = !flag; // Update flag before showing dialog
         } else {
-            showConfirmationDialog("Disable Two-Factor Authentication?", "Are you sure you want to disable Two-Factor Authentication?");
+            showConfirmationDialog("Disable Two-Factor Authentication?" , "Are you sure you want to disable Two-Factor Authentication?");
         }
     }
 
