@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 public class CarMeetSectionActivity extends AppCompatActivity {
-    Button btnCreateMeeting, btnJoinMeeting;
+    Button btnCreateMeeting, btnJoinMeeting, btnMyCarMeets;
     ImageView ivExit;
 
     @Override
@@ -18,6 +18,7 @@ public class CarMeetSectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_car_meet_section);
         btnCreateMeeting = findViewById(R.id.btnCreateCarMeet);
         btnJoinMeeting = findViewById(R.id.btnJoinCarMeet);
+        btnMyCarMeets = findViewById(R.id.btnMyCarMeets);
         ivExit = findViewById(R.id.ivExit);
 
         btnCreateMeeting.setOnClickListener(new View.OnClickListener() {
@@ -32,6 +33,14 @@ public class CarMeetSectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CarMeetSectionActivity.this, JoinCarMeetActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnMyCarMeets.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CarMeetSectionActivity.this, MyCarMeetsActivity.class);
                 startActivity(intent);
             }
         });

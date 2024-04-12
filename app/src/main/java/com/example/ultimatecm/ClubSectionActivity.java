@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 public class ClubSectionActivity extends AppCompatActivity {
-    Button btnCreateClub, btnJoinClub;
+    Button btnCreateClub, btnJoinClub, btnMyClub;
     ImageView ivExit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +17,7 @@ public class ClubSectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_club_section);
         btnCreateClub = findViewById(R.id.btnCreateClub);
         btnJoinClub = findViewById(R.id.btnJoinClub);
+        btnMyClub = findViewById(R.id.btnMyClub);
         ivExit = findViewById(R.id.ivExit);
 
         btnCreateClub.setOnClickListener(new View.OnClickListener() {
@@ -31,6 +32,14 @@ public class ClubSectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ClubSectionActivity.this, JoinClubActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnMyClub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ClubSectionActivity.this, MyClubsActivity.class);
                 startActivity(intent);
             }
         });

@@ -89,11 +89,24 @@
             android:layout_height="55dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="5dp"
-            android:background="@drawable/custom_button"
+            android:background="@drawable/custom_yellow_button"
             android:text="Create"
             android:textAllCaps="false"
-            android:textColor="#949398"
+            android:textColor="#d9a737"
             android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btnMyClub"
+            android:layout_width="125dp"
+            android:layout_height="55dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/custom_button"
+            android:text="My Clubs"
+            android:textAllCaps="false"
+            android:textColor="#949398"
+            android:textSize="18sp"
+            android:clickable="false"/>
 
         <Button
             android:id="@+id/btnJoinClub"

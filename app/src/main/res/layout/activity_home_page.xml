@@ -62,15 +62,6 @@
         android:textColor="#d9a737"
         android:textSize="25dp" />
 
-    <!-- Add SearchView -->
-    <SearchView
-        android:id="@+id/searchView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:queryHint="Search..."
-        android:iconifiedByDefault="false"
-        android:background="@drawable/search_view_background" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -85,7 +76,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginBottom="5dp"
             android:background="@drawable/custom_button"
-            android:text="Meeting \n Section"
+            android:text="CarMeet \n Section"
             android:textAllCaps="false"
             android:textColor="#949398"
             android:textSize="18dp" />

@@ -53,12 +53,6 @@ public class HomePageActivity extends AppCompatActivity {
                         } else if (id == R.id.action_security) {
                             Intent intent = new Intent(HomePageActivity.this, SecurityActivity.class);
                             startActivity(intent);
-                        } else if (id == R.id.action_my_meetings) {
-                            Intent intent = new Intent(HomePageActivity.this, MyCarMeetsActivity.class);
-                            startActivity(intent);
-                        } else if (id == R.id.action_my_clubs) {
-                            Intent intent = new Intent(HomePageActivity.this, MyClubsActivity.class);
-                            startActivity(intent);
                         } else if (id == R.id.action_log_out) {
                             finish();
                         }

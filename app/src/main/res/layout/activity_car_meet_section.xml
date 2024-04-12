@@ -70,7 +70,8 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:textAlignment="center"
-            android:text="Select if you want to join a club or create one"
+            android:text="Select if you want to join a car meet
+            or create one"
             android:textColor="#d9a737"
             android:textSize="24sp"
             android:layout_gravity="center"/>
@@ -89,8 +90,20 @@
             android:layout_height="55dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="5dp"
-            android:background="@drawable/custom_button"
             android:text="Create"
+            android:background="@drawable/custom_yellow_button"
+            android:textAllCaps="false"
+            android:textColor="#d9a737"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btnMyCarMeets"
+            android:layout_width="125dp"
+            android:layout_height="55dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
+            android:text="My Car Meets"
+            android:background="@drawable/custom_button"
             android:textAllCaps="false"
             android:textColor="#949398"
             android:textSize="18sp" />
