@@ -31,7 +31,6 @@ public class CreateCarMeetActivity extends AppCompatActivity {
     int verify = 0;
     CarMeet carMeet = new CarMeet();
     Location location;
-    CheckBox cbAmericans, cbOldCars, cbEveryoneWelcomed, cbNewCars, cbPublic, cbPrivate;
     private ArrayList<String> selectedTagsList = new ArrayList<String>();
     private boolean[] tagCheckedState = new boolean[6]; // 6 tags
 

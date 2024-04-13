@@ -1,10 +1,13 @@
 package com.example.ultimatecm;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -40,5 +43,28 @@ public class JoinClubActivity extends AppCompatActivity {
         cAdapter = new ClubAdapter(this,0,0, clubArrayList);
         lv = findViewById(R.id.lvClub);
         lv.setAdapter(cAdapter);
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(JoinClubActivity.this);
+                builder.setMessage("Do you want to join this club?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Add your code to handle "Yes" option here
+                                // For example, you can start another activity or perform any other action
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Add your code to handle "No" option here
+                            }
+                        });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
     }
 }

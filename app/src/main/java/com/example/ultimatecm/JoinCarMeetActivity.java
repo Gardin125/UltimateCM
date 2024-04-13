@@ -1,12 +1,18 @@
 package com.example.ultimatecm;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+
+import com.example.ultimatecm.databinding.EditMeetingActivityBinding;
 
 import java.util.ArrayList;
 
@@ -16,6 +22,7 @@ public class JoinCarMeetActivity extends AppCompatActivity {
     ArrayList<CarMeet> carMeetArrayList;
     ListView lv;
     CarMeetAdapter cmAdapter;
+    CarMeet lastSelected;
 
     @Override
     @SuppressLint("MissingInflatedId")
@@ -40,5 +47,30 @@ public class JoinCarMeetActivity extends AppCompatActivity {
         cmAdapter = new CarMeetAdapter(this,0,0, carMeetArrayList);
         lv = findViewById(R.id.lvCarMeeting);
         lv.setAdapter(cmAdapter);
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(JoinCarMeetActivity.this);
+                builder.setMessage("Do you want to join this meeting?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Add your code to handle "Yes" option here
+                                // For example, you can start another activity or perform any other action
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Add your code to handle "No" option here
+                            }
+                        });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
     }
+
 }

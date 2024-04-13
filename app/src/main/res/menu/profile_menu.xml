@@ -3,12 +3,15 @@
 
     <item
         android:id="@+id/action_personal_info"
-        android:title="Personal Info"/>
+        android:title="Personal Info" />
     <item
         android:id="@+id/action_security"
-        android:title="Security"/>
+        android:title="Security" />
+    <item
+        android:id="@+id/action_change_profile_pic"
+        android:title="Change Profile Picture" />
     <item
         android:id="@+id/action_log_out"
-        android:title="Log Out"/>
+        android:title="Log Out" />
 
 </menu>

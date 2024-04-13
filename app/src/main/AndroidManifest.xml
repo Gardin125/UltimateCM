@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -15,10 +16,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UltimateCM"
         tools:targetApi="31">
+        <activity
+            android:name=".EditMeetingActivity"
+            android:exported="false" />
+
         <service
             android:name=".DataChangeService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <activity
             android:name=".PersonalInfoActivity"

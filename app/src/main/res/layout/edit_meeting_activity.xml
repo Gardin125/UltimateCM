@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="#949398"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/etDate"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:hint="date"
+        android:textSize="30sp"
+        android:backgroundTint="#d9a737"
+        android:textColorHint="#d9a737"
+        />
+
+    <EditText
+        android:id="@+id/etTime"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:hint="time"
+        android:textSize="30sp"
+        android:backgroundTint="#d9a737"
+        android:textColorHint="#d9a737"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp">
+
+        <Button
+            android:id="@+id/btnChangeLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Location"
+            android:textSize="20dp"
+            android:layout_marginRight="20dp"
+            android:textAllCaps="false"
+            android:backgroundTint="#d9a737" />
+
+        <Button
+            android:id="@+id/btnChangeTags"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="Tags"
+            android:textAllCaps="false"
+            android:backgroundTint="#d9a737"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:background="@drawable/custom_button"
+        android:textColor="#949398"
+        android:layout_marginBottom="10dp"
+        android:text="Save" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_yellow_button"
+        android:textSize="20dp"
+        android:textColor="#d9a737"
+        android:textAllCaps="false"
+        android:text="Cancel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_marginTop="10dp"
+        android:textSize="20dp"
+        android:id="@+id/tvError"
+        android:textColor="#FF0000"/>
+
+</LinearLayout>
