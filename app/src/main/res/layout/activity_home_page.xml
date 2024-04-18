@@ -30,7 +30,6 @@
             android:id="@+id/ivAppIcon"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/ucmphoto"
             android:layout_marginStart="50dp"
             android:layout_marginTop="5dp"
             android:clickable="true" />

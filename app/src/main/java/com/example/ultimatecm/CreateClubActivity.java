@@ -21,7 +21,7 @@ public class CreateClubActivity extends AppCompatActivity {
     ImageView ivExit;
     Switch aSwitch;
     boolean privacy;
-    Club club = new Club();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +79,7 @@ public class CreateClubActivity extends AppCompatActivity {
                 } else if (etClubName.getText().toString().length() <= 3){
                     tvError.setText("Please enter club name that is more then 3 letter.");
                 } else {
+                    Club club = new Club();
                     club.setClubName(etClubName.getText().toString());
                     club.setClubDescription(etClubDescription.getText().toString());
                     club.setPrivacy(privacy);
