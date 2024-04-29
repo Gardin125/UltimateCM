@@ -40,7 +40,7 @@ public class JoinCarMeetActivity extends AppCompatActivity {
         carMeetArrayList = new ArrayList<CarMeet>();
         for (int i = 0; i < DataManager.getCarMeets().size(); i++)
         {
-            CarMeet carMeet = new CarMeet(DataManager.getCarMeets().get(i).getDate(), DataManager.getCarMeets().get(i).getTime(), DataManager.getCarMeets().get(i).getTags(), DataManager.getCarMeets().get(i).getPrivacy(),DataManager.getCarMeets().get(i).getLocation());
+            CarMeet carMeet = new CarMeet(DataManager.getCarMeets().get(i).getDate(), DataManager.getCarMeets().get(i).getTime(), DataManager.getCarMeets().get(i).getTags(), DataManager.getCarMeets().get(i).getPrivacy(),DataManager.getCarMeets().get(i).getLocation(),DataManager.getCarMeets().get(i).getCreator());
             carMeetArrayList.add(carMeet);
         }
 
@@ -71,6 +71,17 @@ public class JoinCarMeetActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public String getUsername()
+    {
+        String username = "";
+        for (int i = 0; i < DataManager.getPeople().size(); i++ )
+        {
+            if (DBManager.getCurrentUserEmail().equals(DataManager.getPeople().get(i).getEmail()))
+                username = DataManager.getPeople().get(i).getUsername();
+        }
+        return username;
     }
 
 }

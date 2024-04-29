@@ -8,13 +8,15 @@ public class CarMeet {
     private ArrayList<String> tags; // #Americans, #OldCars
     private boolean privacy; // True = Public, False = Private
     private Location location;
+    private String creator;
 
-    public CarMeet(String date, String time, ArrayList<String> tags, boolean privacy, Location location) {
+    public CarMeet(String date, String time, ArrayList<String> tags, boolean privacy, Location location, String creator) {
         this.date = date;
         this.time = time;
         this.tags = tags;
         this.privacy = privacy;
         this.location = location;
+        this.creator =creator;
     }
 
     public CarMeet() {
@@ -58,5 +60,13 @@ public class CarMeet {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
     }
 }

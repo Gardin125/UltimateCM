@@ -56,12 +56,19 @@
         android:id="@+id/btnSave"
         android:layout_width="210dp"
         android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:background="@drawable/custom_button"
-        android:textColor="#949398"
         android:layout_marginBottom="10dp"
-        android:text="Save" />
+        android:background="@drawable/custom_button"
+        android:text="Save"
+        android:textAllCaps="false"
+        android:textColor="#949398" />
 
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Public"
+        android:textColor="#d9a737"
+        android:id="@+id/swhPrivacy"
+        android:textSize="30dp" />
     <Button
         android:id="@+id/btnCancel"
         android:layout_width="210dp"

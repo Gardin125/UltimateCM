@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -21,9 +22,11 @@ import java.util.Calendar;
 public class EditMeetingActivity extends AppCompatActivity {
     EditText etDate, etTime;
     Button btnChangeLocation, btnChangeTags, btnCancel, btnSave;
+    Switch swhPrivacy;
     int verify = 0;
     Location location;
     TextView tvError;
+    boolean privacy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +39,11 @@ public class EditMeetingActivity extends AppCompatActivity {
         btnChangeTags = findViewById(R.id.btnChangeTags);
         btnCancel = findViewById(R.id.btnCancel);
         btnSave = findViewById(R.id.btnSave);
+        swhPrivacy = findViewById(R.id.swhPrivacy);
         tvError = findViewById(R.id.tvError);
 
         Intent intent = getIntent();
+        privacy = intent.getBooleanExtra("PRIVACY", false);
         if (intent.getExtras() != null)
         {
             etDate.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +64,13 @@ public class EditMeetingActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     pickPointOnMap();
+                }
+            });
+
+            swhPrivacy.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    updatePublicStatus(swhPrivacy.isChecked());
                 }
             });
         }
@@ -150,6 +162,16 @@ public class EditMeetingActivity extends AppCompatActivity {
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             String str = hourOfDay + ":" + minute;
             etTime.setText(str);
+        }
+    }
+
+    public void updatePublicStatus(boolean isPublic) {
+        if (isPublic) {
+            swhPrivacy.setText("Public");
+            privacy = true;
+        } else {
+            swhPrivacy.setText("Private");
+            privacy = false;
         }
     }
 }

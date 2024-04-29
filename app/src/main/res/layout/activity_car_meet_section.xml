@@ -82,42 +82,67 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center|bottom"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        >
 
-        <Button
-            android:id="@+id/btnCreateCarMeet"
-            android:layout_width="125dp"
-            android:layout_height="55dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="5dp"
-            android:text="Create"
-            android:background="@drawable/custom_yellow_button"
-            android:textAllCaps="false"
-            android:textColor="#d9a737"
-            android:textSize="18sp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            <Button
+                android:id="@+id/btnCreateCarMeet"
+                android:layout_width="125dp"
+                android:layout_height="55dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                android:text="Create"
+                android:background="@drawable/custom_button"
+                android:textAllCaps="false"
+                android:textColor="#949398"
+                android:textSize="18sp" />
 
-        <Button
-            android:id="@+id/btnMyCarMeets"
-            android:layout_width="125dp"
-            android:layout_height="55dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="5dp"
-            android:text="My Car Meets"
-            android:background="@drawable/custom_button"
-            android:textAllCaps="false"
-            android:textColor="#949398"
-            android:textSize="18sp" />
+            <Button
+                android:id="@+id/btnJoinCarMeet"
+                android:layout_width="125dp"
+                android:layout_height="55dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/custom_yellow_button"
+                android:text="Join"
+                android:textAllCaps="false"
+                android:textColor="#d9a737"
+                android:textSize="18sp" />
 
-        <Button
-            android:id="@+id/btnJoinCarMeet"
-            android:layout_width="125dp"
-            android:layout_height="55dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/custom_yellow_button"
-            android:text="Join"
-            android:textAllCaps="false"
-            android:textColor="#d9a737"
-            android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+            <Button
+                android:id="@+id/btnMyCM"
+                android:layout_width="125dp"
+                android:layout_height="55dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                android:text="Others CM"
+                android:background="@drawable/custom_yellow_button"
+                android:textAllCaps="false"
+                android:textColor="#d9a737"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/btnOthersCM"
+                android:layout_width="125dp"
+                android:layout_height="55dp"
+                android:layout_marginBottom="5dp"
+                android:text="My CarMeets"
+                android:background="@drawable/custom_button"
+                android:textAllCaps="false"
+                android:textColor="#949398"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+
 
     </LinearLayout> <!-- 80 represents 50% transparency -->
 

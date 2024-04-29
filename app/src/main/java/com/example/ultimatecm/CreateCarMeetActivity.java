@@ -29,7 +29,7 @@ public class CreateCarMeetActivity extends AppCompatActivity {
     Switch switchSettings;
     TextView tvIsPublic, tvError;
     int verify = 0;
-    CarMeet carMeet = new CarMeet();
+    CarMeet carMeet;
     Location location;
     private ArrayList<String> selectedTagsList = new ArrayList<String>();
     private boolean[] tagCheckedState = new boolean[6]; // 6 tags
@@ -59,11 +59,8 @@ public class CreateCarMeetActivity extends AppCompatActivity {
                 } else if (verify == 0) {
                     tvError.setText("Please fill all the information before creating a new Car Meet");
                 } else {
-                    carMeet.setDate(btnSelectDate.getText().toString());
-                    carMeet.setTime(btnSelectTime.getText().toString());
-                    carMeet.setPrivacy(privacy);
-                    carMeet.setLocation(location);
-                    carMeet.setTags(selectedTagsList);
+                    carMeet = new CarMeet(btnSelectDate.getText().toString(), btnSelectTime.getText().toString()
+                            , selectedTagsList, privacy, location, getUsername());
                     DataManager.addNewCarMeet(carMeet);
                     finish();
                 }
@@ -291,5 +288,14 @@ public class CreateCarMeetActivity extends AppCompatActivity {
         if (tagCheckedState[5]) {
             selectedTagsList.add("#Private");
         }
+    }
+
+    public String getUsername() {
+        String username = "";
+        for (int i = 0; i < DataManager.getPeople().size(); i++) {
+            if (DBManager.getCurrentUserEmail().equals(DataManager.getPeople().get(i).getEmail()))
+                username = DataManager.getPeople().get(i).getUsername();
+        }
+        return username;
     }
 }
