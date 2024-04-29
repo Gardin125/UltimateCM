@@ -27,6 +27,10 @@ public class MyCarMeetsActivity extends AppCompatActivity {
         ivExit = findViewById(R.id.ivSecurity);
         lvMyCM = findViewById(R.id.lvMyCM);
 
+        carMeets = new ArrayList<>();
+
+        DataManager.pullCarMeets();
+
         for (int i = 0; i < DataManager.getCarMeets().size(); i++)
         {
             if (DataManager.getCarMeets().get(i).getCreator().equals(getUsername()))
