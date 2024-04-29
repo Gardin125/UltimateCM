@@ -29,9 +29,6 @@
             android:name=".PersonalInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".MyClubsActivity"
-            android:exported="false" />
-        <activity
             android:name=".MyCarMeetsActivity"
             android:exported="false" />
         <activity
@@ -57,12 +54,6 @@
             android:exported="false"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name=".JoinClubActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CreateClubActivity"
-            android:exported="false" />
-        <activity
             android:name=".JoinCarMeetActivity"
             android:exported="false" />
         <activity
@@ -80,9 +71,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ClubSectionActivity"
-            android:exported="false" />
         <activity
             android:name=".CarMeetSectionActivity"
             android:exported="false" />

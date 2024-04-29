@@ -9,26 +9,28 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
 public class HomePageActivity extends AppCompatActivity {
-    Button btnMeetingSection, btnClubSection;
+    Button btnMeetingSection;
     ImageView ivPfp;
+    TextView tvMsg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-        btnClubSection = findViewById(R.id.btnClubSection);
         btnMeetingSection = findViewById(R.id.btnMeetingSection);
         ivPfp = findViewById(R.id.ivPfp);
+        tvMsg = findViewById(R.id.tvWelcomeUser);
 
-        btnClubSection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomePageActivity.this, ClubSectionActivity.class);
-                startActivity(intent);
-            }
-        });
+        for (int i = 0; i < DataManager.getPeople().size(); i++ )
+        {
+            if (DBManager.getCurrentUserEmail().equals(DataManager.getPeople().get(i).getEmail()))
+                tvMsg.setText("Welcome! " + DataManager.getPeople().get(i).getUsername());
+        }
+
+
 
         btnMeetingSection.setOnClickListener(new View.OnClickListener() {
             @Override

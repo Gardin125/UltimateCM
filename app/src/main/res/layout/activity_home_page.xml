@@ -25,14 +25,6 @@
             android:clickable="true"
             android:src="@drawable/pfp" />
 
-        <!-- Add ImageView for App Icon -->
-        <ImageView
-            android:id="@+id/ivAppIcon"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="5dp"
-            android:clickable="true" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -54,12 +46,13 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tvMsg"
+        android:id="@+id/tvWelcomeUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
         android:textColor="#d9a737"
-        android:textSize="25dp" />
+        android:textSize="25dp"
+        android:gravity="center_horizontal" />
 
 
     <LinearLayout
@@ -70,8 +63,8 @@
 
         <Button
             android:id="@+id/btnMeetingSection"
-            android:layout_width="125dp"
-            android:layout_height="55dp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="5dp"
             android:background="@drawable/custom_button"
@@ -80,16 +73,6 @@
             android:textColor="#949398"
             android:textSize="18dp" />
 
-        <Button
-            android:id="@+id/btnClubSection"
-            android:layout_width="125dp"
-            android:layout_height="55dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="5dp"
-            android:text="Club \n Section"
-            android:textAllCaps="false"
-            android:textColor="#d9a737"
-            android:textSize="18dp"
-            android:background="@drawable/custom_yellow_button" />
+
     </LinearLayout>
 </LinearLayout>

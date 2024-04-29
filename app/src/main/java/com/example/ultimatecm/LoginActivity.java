@@ -71,7 +71,6 @@ public class LoginActivity extends AppCompatActivity {
 
         DataManager.pullPeople();
         DataManager.pullCarMeets();
-        DataManager.pullClubs();
     }
 
     private void showInvalidCredentialsDialog(String message) {

@@ -65,8 +65,7 @@ public class SignupActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 ArrayList<CarMeet> myCarMeets = new ArrayList<CarMeet>();
-                                ArrayList<Club> myClubs = new ArrayList<Club>();
-                                Person person = new Person(firstName, lastName, email, username, password, myCarMeets, myClubs);
+                                Person person = new Person(firstName, lastName, email, username, password, myCarMeets);
                                 DataManager.addNewPerson(person);
                                 Log.d("User Auth", "User signed successfully");
                                 Toast.makeText(SignupActivity.this, "Successful sign up", Toast.LENGTH_SHORT).show();

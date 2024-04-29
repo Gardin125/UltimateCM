@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class DataManager {
     private static ArrayList<Person> people;
     private static ArrayList<CarMeet> carMeets;
-    private static ArrayList<Club> clubs;
+
     private static final String dbMainList = "people";
     private static final String dbCarMeetList = "carMeets";
     private static final String dbClubList = "clubs";
@@ -29,11 +29,6 @@ public class DataManager {
         return carMeets;
     }
 
-    public static ArrayList<Club> getClubs() {
-        if (clubs == null)
-            clubs = new ArrayList<Club>();
-        return clubs;
-    }
 
     public static void pullPeople()
     {
@@ -69,22 +64,6 @@ public class DataManager {
         });
     }
 
-    public static void pullClubs()
-    {
-        DBManager.getDb().getReference(dbCarMeetList).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                GenericTypeIndicator<ArrayList<Club>> t = new GenericTypeIndicator<ArrayList<Club>>() {
-                };
-                clubs = snapshot.getValue(t);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
 
     public static void addNewPerson(Person person) {
         getPeople().add(person);
@@ -98,9 +77,4 @@ public class DataManager {
         DBManager.getDb().getReference(dbCarMeetList).setValue(carMeets);
     }
 
-    public static void addNewClub(Club club) {
-        getClubs().add(club);
-        // Save to db
-        DBManager.getDb().getReference(dbClubList).setValue(clubs);
-    }
 }

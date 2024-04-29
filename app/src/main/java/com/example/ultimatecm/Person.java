@@ -10,16 +10,14 @@ public class Person {
     protected String username;
     private String password;
     private ArrayList<CarMeet> myCarMeets;
-    private ArrayList<Club> myClubs;
 
-    public Person(String firstName, String lastName, String email, String username, String password, ArrayList<CarMeet> myCarMeets, ArrayList<Club> myClubs) {
+    public Person(String firstName, String lastName, String email, String username, String password, ArrayList<CarMeet> myCarMeets) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
         this.password = password;
         this.myCarMeets = myCarMeets;
-        this.myClubs = myClubs;
     }
 
     public Person() {
@@ -73,11 +71,4 @@ public class Person {
         this.myCarMeets = myCarMeets;
     }
 
-    public ArrayList<Club> getMyClubs() {
-        return myClubs;
-    }
-
-    public void setMyClubs(ArrayList<Club> myClubs) {
-        this.myClubs = myClubs;
-    }
 }

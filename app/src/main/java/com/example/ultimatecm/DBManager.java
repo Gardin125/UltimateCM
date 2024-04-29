@@ -1,6 +1,7 @@
 package com.example.ultimatecm;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -18,6 +19,15 @@ public class DBManager {
         if (db == null)
             db = FirebaseDatabase.getInstance("https://ultimatecm-41c1f-default-rtdb.europe-west1.firebasedatabase.app/");
         return db;
+    }
+
+    public static String getCurrentUserEmail() {
+        FirebaseUser user = getAuth().getCurrentUser();
+        if (user != null) {
+            return user.getEmail();
+        } else {
+            return null; // No user logged in
+        }
     }
 
     public static DatabaseReference getMainRoot()
