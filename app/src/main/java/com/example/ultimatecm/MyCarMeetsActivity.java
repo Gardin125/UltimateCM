@@ -20,32 +20,36 @@ public class MyCarMeetsActivity extends AppCompatActivity {
     CarMeet lastSelected;
     CarMeetAdapter carMeetAdapter;
     ArrayList<CarMeet> carMeets;
+    Person currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_car_meets);
         ivExit = findViewById(R.id.ivSecurity);
         lvMyCM = findViewById(R.id.lvMyCM);
-
-        carMeets = new ArrayList<>();
-
-        DataManager.pullCarMeets();
-
-        for (int i = 0; i < DataManager.getCarMeets().size(); i++)
-        {
-            if (DataManager.getCarMeets().get(i).getCreator().equals(getUsername()))
-                carMeets.add(DataManager.getCarMeets().get(i));
-        }
-
-        carMeetAdapter = new CarMeetAdapter(this,0,0, carMeets);
-        lvMyCM.setAdapter(carMeetAdapter);
-
+        currentUser = new Person();
         ivExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+
+        for (int i = 0; i < DataManager.getPeople().size(); i++)
+        {
+            if (DataManager.getPeople().get(i).username == getUsername())
+                currentUser = DataManager.getPeople().get(i);
+        }
+
+        ArrayList<CarMeet> myCMList = new ArrayList<CarMeet>();
+        for (int i = 0; i < DataManager.getCarMeets().size(); i++)
+        {
+            if (DataManager.getCarMeets().get(i).getCreator().equals(getUsername()))
+                myCMList.add(DataManager.getCarMeets().get(i));
+        }
+
+        carMeetAdapter = new CarMeetAdapter(this,0,0, myCMList);
+        lvMyCM.setAdapter(carMeetAdapter);
 
         lvMyCM.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

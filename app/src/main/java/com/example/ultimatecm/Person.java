@@ -9,15 +9,19 @@ public class Person {
     private String email;
     protected String username;
     private String password;
+    private byte[] profilePicture; // New field for storing profile picture
     private ArrayList<CarMeet> myCarMeets;
+    private ArrayList<CarMeet> othersCarMeets;
 
-    public Person(String firstName, String lastName, String email, String username, String password, ArrayList<CarMeet> myCarMeets) {
+    public Person(String firstName, String lastName, String email, String username, String password, byte[] profilePicture, ArrayList<CarMeet> myCarMeets, ArrayList<CarMeet> othersCarMeets) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
         this.password = password;
+        this.profilePicture = profilePicture;
         this.myCarMeets = myCarMeets;
+        this.othersCarMeets = othersCarMeets;
     }
 
     public Person() {
@@ -63,7 +67,18 @@ public class Person {
         this.password = password;
     }
 
+    public byte[] getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(byte[] profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
     public ArrayList<CarMeet> getMyCarMeets() {
+        if (myCarMeets == null) {
+            myCarMeets = new ArrayList<>();
+        }
         return myCarMeets;
     }
 
@@ -71,4 +86,15 @@ public class Person {
         this.myCarMeets = myCarMeets;
     }
 
+    public ArrayList<CarMeet> getOthersCarMeets() {
+        if (othersCarMeets == null) {
+            othersCarMeets = new ArrayList<>();
+        }
+        return othersCarMeets;
+    }
+
+    public void setOthersCarMeets(ArrayList<CarMeet> othersCarMeets) {
+        this.othersCarMeets = othersCarMeets;
+    }
 }
+

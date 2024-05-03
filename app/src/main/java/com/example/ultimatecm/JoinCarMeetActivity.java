@@ -19,10 +19,11 @@ import java.util.ArrayList;
 public class JoinCarMeetActivity extends AppCompatActivity {
     ImageView ivExit;
 
-    ArrayList<CarMeet> carMeetArrayList;
+    ArrayList<CarMeet> carMeetArrayList, othersCarMeetArrayList;
     ListView lv;
     CarMeetAdapter cmAdapter;
     CarMeet lastSelected;
+    Person currentUser;
 
     @Override
     @SuppressLint("MissingInflatedId")
@@ -38,13 +39,12 @@ public class JoinCarMeetActivity extends AppCompatActivity {
         });
 
         carMeetArrayList = new ArrayList<CarMeet>();
-        for (int i = 0; i < DataManager.getCarMeets().size(); i++)
-        {
-            CarMeet carMeet = new CarMeet(DataManager.getCarMeets().get(i).getDate(), DataManager.getCarMeets().get(i).getTime(), DataManager.getCarMeets().get(i).getTags(), DataManager.getCarMeets().get(i).getPrivacy(),DataManager.getCarMeets().get(i).getLocation(),DataManager.getCarMeets().get(i).getCreator());
+        for (int i = 0; i < DataManager.getCarMeets().size(); i++) {
+            CarMeet carMeet = new CarMeet(DataManager.getCarMeets().get(i).getDate(), DataManager.getCarMeets().get(i).getTime(), DataManager.getCarMeets().get(i).getTags(), DataManager.getCarMeets().get(i).getPrivacy(), DataManager.getCarMeets().get(i).getLocation(), DataManager.getCarMeets().get(i).getCreator());
             carMeetArrayList.add(carMeet);
         }
 
-        cmAdapter = new CarMeetAdapter(this,0,0, carMeetArrayList);
+        cmAdapter = new CarMeetAdapter(this, 0, 0, carMeetArrayList);
         lv = findViewById(R.id.lvCarMeeting);
         lv.setAdapter(cmAdapter);
 
@@ -56,8 +56,22 @@ public class JoinCarMeetActivity extends AppCompatActivity {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // Add your code to handle "Yes" option here
-                                // For example, you can start another activity or perform any other action
+                                for (int i = 0; i < DataManager.getPeople().size(); i++) {
+                                    if (DataManager.getPeople().get(i).username == getUsername()) {
+                                        currentUser = DataManager.getPeople().get(i);
+                                    }
+                                }
+                                for (int i = 0; i < DataManager.getCarMeets().size(); i++) {
+                                    if (DataManager.getCarMeets().get(i).getCreator() != currentUser.username) {
+                                        othersCarMeetArrayList = currentUser.getOthersCarMeets();
+                                        othersCarMeetArrayList.add(DataManager.getCarMeets().get(i));
+                                    }
+                                }
+
+                                // Remove the clicked item from the ArrayList
+                                CarMeet selectedCarMeet = carMeetArrayList.get(position);
+                                carMeetArrayList.remove(selectedCarMeet);
+                                cmAdapter.notifyDataSetChanged();
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -73,11 +87,9 @@ public class JoinCarMeetActivity extends AppCompatActivity {
 
     }
 
-    public String getUsername()
-    {
+    public String getUsername() {
         String username = "";
-        for (int i = 0; i < DataManager.getPeople().size(); i++ )
-        {
+        for (int i = 0; i < DataManager.getPeople().size(); i++) {
             if (DBManager.getCurrentUserEmail().equals(DataManager.getPeople().get(i).getEmail()))
                 username = DataManager.getPeople().get(i).getUsername();
         }
