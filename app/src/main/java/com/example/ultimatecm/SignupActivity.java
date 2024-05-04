@@ -19,6 +19,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SignupActivity extends AppCompatActivity {
     ImageView ivExit;
@@ -66,7 +67,7 @@ public class SignupActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 ArrayList<CarMeet> myCarMeets = new ArrayList<CarMeet>();
                                 ArrayList<CarMeet> othersCarMeets = new ArrayList<CarMeet>();
-                                byte[] pfp = new byte[0];
+                                HashMap pfp = new HashMap();
                                 Person person = new Person(firstName, lastName, email, username, password, pfp, myCarMeets, othersCarMeets);
                                 DataManager.addNewPerson(person);
                                 Log.d("User Auth", "User signed successfully");

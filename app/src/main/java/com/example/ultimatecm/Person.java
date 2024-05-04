@@ -1,7 +1,7 @@
 package com.example.ultimatecm;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Person {
     protected String firstName;
@@ -9,11 +9,11 @@ public class Person {
     private String email;
     protected String username;
     private String password;
-    private byte[] profilePicture; // New field for storing profile picture
+    private HashMap profilePicture; // New field for storing profile picture
     private ArrayList<CarMeet> myCarMeets;
     private ArrayList<CarMeet> othersCarMeets;
 
-    public Person(String firstName, String lastName, String email, String username, String password, byte[] profilePicture, ArrayList<CarMeet> myCarMeets, ArrayList<CarMeet> othersCarMeets) {
+    public Person(String firstName, String lastName, String email, String username, String password, HashMap profilePicture, ArrayList<CarMeet> myCarMeets, ArrayList<CarMeet> othersCarMeets) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -67,11 +67,11 @@ public class Person {
         this.password = password;
     }
 
-    public byte[] getProfilePicture() {
+    public HashMap getProfilePicture() {
         return profilePicture;
     }
 
-    public void setProfilePicture(byte[] profilePicture) {
+    public void setProfilePicture(HashMap profilePicture) {
         this.profilePicture = profilePicture;
     }
 

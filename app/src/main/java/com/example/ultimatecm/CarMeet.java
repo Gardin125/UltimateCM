@@ -1,8 +1,9 @@
 package com.example.ultimatecm;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class CarMeet {
+public class CarMeet implements Serializable {
     private String date; // Format: dd/mm/yyyy
     private String time; // Format: mm:ss
     private ArrayList<String> tags; // #Americans, #OldCars

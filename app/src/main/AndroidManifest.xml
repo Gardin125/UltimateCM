@@ -17,6 +17,9 @@
         android:theme="@style/Theme.UltimateCM"
         tools:targetApi="31">
         <activity
+            android:name=".CarMeetDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".OthersCarMeetsActivity"
             android:exported="false" />
         <activity

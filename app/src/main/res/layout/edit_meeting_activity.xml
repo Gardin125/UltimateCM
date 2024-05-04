@@ -2,29 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:background="#949398"
+    android:gravity="center"
     android:orientation="vertical">
 
     <EditText
         android:id="@+id/etDate"
         android:layout_width="210dp"
         android:layout_height="wrap_content"
-        android:hint="date"
-        android:textSize="30sp"
         android:backgroundTint="#d9a737"
+        android:hint="date"
         android:textColorHint="#d9a737"
-        />
+        android:textSize="30sp" />
 
     <EditText
         android:id="@+id/etTime"
         android:layout_width="210dp"
         android:layout_height="wrap_content"
-        android:hint="time"
-        android:textSize="30sp"
         android:backgroundTint="#d9a737"
+        android:hint="time"
         android:textColorHint="#d9a737"
-        />
+        android:textSize="30sp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -35,22 +33,30 @@
             android:id="@+id/btnChangeLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Location"
-            android:textSize="20dp"
             android:layout_marginRight="20dp"
+            android:backgroundTint="#d9a737"
+            android:text="Location"
             android:textAllCaps="false"
-            android:backgroundTint="#d9a737" />
+            android:textSize="20dp" />
 
         <Button
             android:id="@+id/btnChangeTags"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:backgroundTint="#d9a737"
             android:text="Tags"
             android:textAllCaps="false"
-            android:backgroundTint="#d9a737"/>
+            android:textSize="20dp" />
 
     </LinearLayout>
+
+    <Switch
+        android:id="@+id/swhPrivacy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Public"
+        android:textColor="#d9a737"
+        android:textSize="30dp" />
 
     <Button
         android:id="@+id/btnSave"
@@ -60,32 +66,26 @@
         android:background="@drawable/custom_button"
         android:text="Save"
         android:textAllCaps="false"
-        android:textColor="#949398" />
+        android:textColor="#949398"
+        android:textSize="20sp"/>
 
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Public"
-        android:textColor="#d9a737"
-        android:id="@+id/swhPrivacy"
-        android:textSize="30dp" />
     <Button
         android:id="@+id/btnCancel"
         android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:background="@drawable/custom_yellow_button"
-        android:textSize="20dp"
-        android:textColor="#d9a737"
+        android:text="Cancel"
         android:textAllCaps="false"
-        android:text="Cancel" />
+        android:textColor="#d9a737"
+        android:textSize="20dp" />
 
     <TextView
+        android:id="@+id/tvError"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_marginTop="10dp"
-        android:textSize="20dp"
-        android:id="@+id/tvError"
-        android:textColor="#FF0000"/>
+        android:textColor="#FF0000"
+        android:textSize="20dp" />
 
 </LinearLayout>

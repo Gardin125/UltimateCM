@@ -15,7 +15,6 @@ public class DataManager {
 
     private static final String dbMainList = "people";
     private static final String dbCarMeetList = "carMeets";
-    private static final String dbClubList = "clubs";
 
     public static ArrayList<Person> getPeople() {
         if (people == null)

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.ultimatecm.databinding.EditMeetingActivityBinding;
 
@@ -40,40 +41,61 @@ public class JoinCarMeetActivity extends AppCompatActivity {
 
         carMeetArrayList = new ArrayList<CarMeet>();
         for (int i = 0; i < DataManager.getCarMeets().size(); i++) {
-            CarMeet carMeet = new CarMeet(DataManager.getCarMeets().get(i).getDate(), DataManager.getCarMeets().get(i).getTime(), DataManager.getCarMeets().get(i).getTags(), DataManager.getCarMeets().get(i).getPrivacy(), DataManager.getCarMeets().get(i).getLocation(), DataManager.getCarMeets().get(i).getCreator());
-            carMeetArrayList.add(carMeet);
+            if (!DataManager.getCarMeets().get(i).getCreator().equals(getUsername())) {
+                CarMeet carMeet = new CarMeet(DataManager.getCarMeets().get(i).getDate(),
+                        DataManager.getCarMeets().get(i).getTime(),
+                        DataManager.getCarMeets().get(i).getTags(),
+                        DataManager.getCarMeets().get(i).getPrivacy(),
+                        DataManager.getCarMeets().get(i).getLocation(),
+                        DataManager.getCarMeets().get(i).getCreator());
+                carMeetArrayList.add(carMeet);
+            }
         }
 
         cmAdapter = new CarMeetAdapter(this, 0, 0, carMeetArrayList);
         lv = findViewById(R.id.lvCarMeeting);
         lv.setAdapter(cmAdapter);
 
+        othersCarMeetArrayList = new ArrayList<CarMeet>();
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(JoinCarMeetActivity.this);
-                builder.setMessage("Do you want to join this meeting?")
+                builder.setMessage("Do you want to join this Car Meet?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                for (int i = 0; i < DataManager.getPeople().size(); i++) {
-                                    if (DataManager.getPeople().get(i).username == getUsername()) {
-                                        currentUser = DataManager.getPeople().get(i);
-                                    }
-                                }
-                                for (int i = 0; i < DataManager.getCarMeets().size(); i++) {
-                                    if (DataManager.getCarMeets().get(i).getCreator() != currentUser.username) {
-                                        othersCarMeetArrayList = currentUser.getOthersCarMeets();
-                                        othersCarMeetArrayList.add(DataManager.getCarMeets().get(i));
+                                currentUser = null; // Reset currentUser
+
+                                // Find the current user by username
+                                for (Person person : DataManager.getPeople()) {
+                                    if (person.getUsername().equals(getUsername())) {
+                                        currentUser = person;
+                                        break;
                                     }
                                 }
 
-                                // Remove the clicked item from the ArrayList
-                                CarMeet selectedCarMeet = carMeetArrayList.get(position);
-                                carMeetArrayList.remove(selectedCarMeet);
-                                cmAdapter.notifyDataSetChanged();
+                                // Check if currentUser is found
+                                if (currentUser != null) {
+                                    for (int i = 0; i < DataManager.getCarMeets().size(); i++) {
+                                        if (!DataManager.getCarMeets().get(i).getCreator().equals(currentUser.getUsername())) {
+                                            othersCarMeetArrayList = currentUser.getOthersCarMeets();
+                                            othersCarMeetArrayList.add(DataManager.getCarMeets().get(i));
+                                        }
+                                    }
+
+                                    // Remove the clicked item from the ArrayList
+                                    CarMeet selectedCarMeet = carMeetArrayList.get(position);
+                                    carMeetArrayList.remove(selectedCarMeet);
+                                    cmAdapter.notifyDataSetChanged();
+
+                                } else {
+                                    // Handle case where currentUser is not found
+                                    Toast.makeText(JoinCarMeetActivity.this, "Current user not found", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         })
+
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

@@ -1,6 +1,8 @@
 package com.example.ultimatecm;
 
-public class Location {
+import java.io.Serializable;
+
+public class Location implements Serializable {
     private float latitude;
     private float longitude;
 

@@ -34,6 +34,9 @@ import android.Manifest;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private double latitude;
+    private double longitude;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,15 +51,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("picked_point", latLng);
-                returnIntent.putExtra("VERIFY", 1);
-                setResult(Activity.RESULT_OK, returnIntent);
-                finish();
-            }
-        });
+        // Retrieve latitude and longitude from intent extras
+        Intent intent = getIntent();
+        latitude = intent.getDoubleExtra("latitude", 0);
+        longitude = intent.getDoubleExtra("longitude", 0);
+
+        // Check if latitude and longitude are provided
+        if (latitude != 0 && longitude != 0) {
+            // Create LatLng object from latitude and longitude
+            LatLng carMeetLocation = new LatLng(latitude, longitude);
+
+            // Add a marker at the car meet location and move the camera
+            mMap.addMarker(new MarkerOptions().position(carMeetLocation).title("Car Meet Location"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(carMeetLocation, 15));
+        } else {
+            // Allow the user to pick a new point
+            mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                @Override
+                public void onMapClick(LatLng latLng) {
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra("picked_point", latLng);
+                    returnIntent.putExtra("VERIFY", 1);
+                    setResult(Activity.RESULT_OK, returnIntent);
+                    finish();
+                }
+            });
+        }
     }
+
+
 }
