@@ -1,9 +1,14 @@
 package com.example.ultimatecm;
 
+import static com.example.ultimatecm.DataManager.dbMainList;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -11,10 +16,12 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+
 public class HomePageActivity extends AppCompatActivity {
     Button btnMeetingSection;
     ImageView ivPfp;
     TextView tvMsg;
+    private static final int PICK_IMAGE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +31,10 @@ public class HomePageActivity extends AppCompatActivity {
         ivPfp = findViewById(R.id.ivPfp);
         tvMsg = findViewById(R.id.tvWelcomeUser);
 
-        for (int i = 0; i < DataManager.getPeople().size(); i++ )
-        {
+        for (int i = 0; i < DataManager.getPeople().size(); i++) {
             if (DBManager.getCurrentUserEmail().equals(DataManager.getPeople().get(i).getEmail()))
                 tvMsg.setText("Welcome! " + DataManager.getPeople().get(i).getUsername());
         }
-
 
 
         btnMeetingSection.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +60,12 @@ public class HomePageActivity extends AppCompatActivity {
                         } else if (id == R.id.action_security) {
                             Intent intent = new Intent(HomePageActivity.this, SecurityActivity.class);
                             startActivity(intent);
+                        } else if (id == R.id.action_change_profile_pic) {
+                            // Create an intent to pick an image from the gallery or take a photo
+                            Intent intent = new Intent();
+                            intent.setType("image/*");
+                            intent.setAction(Intent.ACTION_GET_CONTENT);
+                            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
                         } else if (id == R.id.action_log_out) {
                             finish();
                         }
@@ -65,4 +76,5 @@ public class HomePageActivity extends AppCompatActivity {
             }
         });
     }
+
 }

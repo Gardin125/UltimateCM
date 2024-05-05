@@ -4,75 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#949398"
-    android:gravity="center|top"
     android:orientation="vertical"
+    android:background="#949398"
     tools:context=".HomePageActivity">
 
-    <LinearLayout
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- Your content goes here -->
+
+    </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="top|left"
-        android:orientation="horizontal">
-
-
-        <ImageView
-            android:id="@+id/ivPfp"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:clickable="true"
-            android:src="@drawable/pfp" />
-
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:layout_weight="1"
-            android:gravity="top|right"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Home \n Page i hate niggers"
-                android:textColor="#d9a737"
-                android:textSize="30dp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/tvWelcomeUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textColor="#d9a737"
-        android:textSize="25dp"
-        android:gravity="center_horizontal" />
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="bottom"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnMeetingSection"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/custom_button"
-            android:text="CarMeet \n Section"
-            android:textAllCaps="false"
-            android:textColor="#949398"
-            android:textSize="18dp" />
-
-
-    </LinearLayout>
+        android:background="#949398"
+        app:itemIconTint="@color/icon_tint_color"
+        app:itemTextColor="#d9a737"
+        app:menu="@menu/bottom_nav_menu"/>
 </LinearLayout>

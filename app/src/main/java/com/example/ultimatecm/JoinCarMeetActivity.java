@@ -53,7 +53,6 @@ public class JoinCarMeetActivity extends AppCompatActivity {
                         CarMeet carMeet = new CarMeet(DataManager.getCarMeets().get(i).getDate(),
                                 DataManager.getCarMeets().get(i).getTime(),
                                 DataManager.getCarMeets().get(i).getTags(),
-                                DataManager.getCarMeets().get(i).getPrivacy(),
                                 DataManager.getCarMeets().get(i).getLocation(),
                                 DataManager.getCarMeets().get(i).getCreator());
                         carMeetArrayList.add(carMeet);

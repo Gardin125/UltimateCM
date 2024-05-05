@@ -92,33 +92,10 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-
-            <TextView
-                android:id="@+id/tvIsPublic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Private"
-                android:textColor="#d9a737"
-                android:textSize="25dp" />
-
-            <Switch
-                android:id="@+id/switchSettings"
-                android:layout_width="wrap_content"
-                android:layout_gravity="center"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-/>
-
-        </LinearLayout>
 
         <Button
             android:id="@+id/btnLocation"
-            android:layout_width="125dp"
+            android:layout_width="200dp"
             android:layout_height="50dp"
             android:text="Add Location"
             android:layout_marginTop="20dp"

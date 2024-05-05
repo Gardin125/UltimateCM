@@ -35,15 +35,6 @@
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvPrivacy"
-            android:textColor="#d9a737"
-            android:text="Privacy"
-            android:textSize="20dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"/>
 
     </LinearLayout>
 

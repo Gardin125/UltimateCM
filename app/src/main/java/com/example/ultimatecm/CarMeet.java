@@ -7,17 +7,15 @@ public class CarMeet implements Serializable {
     private String date; // Format: dd/mm/yyyy
     private String time; // Format: mm:ss
     private ArrayList<String> tags; // #Americans, #OldCars
-    private boolean privacy; // True = Public, False = Private
     private Location location;
     private String creator;
 
-    public CarMeet(String date, String time, ArrayList<String> tags, boolean privacy, Location location, String creator) {
+    public CarMeet(String date, String time, ArrayList<String> tags,  Location location, String creator) {
         this.date = date;
         this.time = time;
         this.tags = tags;
-        this.privacy = privacy;
         this.location = location;
-        this.creator =creator;
+        this.creator = creator;
     }
 
     public CarMeet() {
@@ -47,14 +45,6 @@ public class CarMeet implements Serializable {
         this.tags = tags;
     }
 
-    public boolean getPrivacy() {
-        return privacy;
-    }
-
-    public void setPrivacy(boolean privacy) {
-        this.privacy = privacy;
-    }
-
     public Location getLocation() {
         return location;
     }
@@ -77,11 +67,10 @@ public class CarMeet implements Serializable {
         boolean dateEqual = this.date.equals(other.date);
         boolean timeEqual = this.time.equals(other.time);
         boolean tagsEqual = this.tags.equals(other.tags);
-        boolean privacyEqual = this.privacy == other.privacy;
         boolean locationEqual = this.location.equals(other.location);
         boolean creatorEqual = this.creator.equals(other.creator);
 
         // Return true if all attributes are equal, false otherwise
-        return dateEqual && timeEqual && tagsEqual && privacyEqual && locationEqual && creatorEqual;
+        return dateEqual && timeEqual && tagsEqual && locationEqual && creatorEqual;
     }
 }

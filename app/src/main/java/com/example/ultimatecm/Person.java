@@ -1,7 +1,6 @@
 package com.example.ultimatecm;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Person {
     protected String firstName;
@@ -9,17 +8,15 @@ public class Person {
     private String email;
     protected String username;
     private String password;
-    private HashMap profilePicture; // New field for storing profile picture
     private ArrayList<CarMeet> myCarMeets;
     private ArrayList<CarMeet> othersCarMeets;
 
-    public Person(String firstName, String lastName, String email, String username, String password, HashMap profilePicture, ArrayList<CarMeet> myCarMeets, ArrayList<CarMeet> othersCarMeets) {
+    public Person(String firstName, String lastName, String email, String username, String password, ArrayList<CarMeet> myCarMeets, ArrayList<CarMeet> othersCarMeets) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
         this.password = password;
-        this.profilePicture = profilePicture;
         this.myCarMeets = myCarMeets;
         this.othersCarMeets = othersCarMeets;
     }
@@ -67,14 +64,6 @@ public class Person {
         this.password = password;
     }
 
-    public HashMap getProfilePicture() {
-        return profilePicture;
-    }
-
-    public void setProfilePicture(HashMap profilePicture) {
-        this.profilePicture = profilePicture;
-    }
-
     public ArrayList<CarMeet> getMyCarMeets() {
         if (myCarMeets == null) {
             myCarMeets = new ArrayList<>();
@@ -96,5 +85,9 @@ public class Person {
     public void setOthersCarMeets(ArrayList<CarMeet> othersCarMeets) {
         this.othersCarMeets = othersCarMeets;
     }
-}
 
+    public boolean checkPassword(String passwordToCheck) {
+        // Compare the given password with the stored password
+        return passwordToCheck.equals(password);
+    }
+}

@@ -2,6 +2,8 @@ package com.example.ultimatecm;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -14,7 +16,7 @@ public class DataManager {
     private static ArrayList<Person> people;
     private static ArrayList<CarMeet> carMeets;
 
-    private static final String dbMainList = "people";
+    static final String dbMainList = "people";
     private static final String dbCarMeetList = "carMeets";
 
     public static ArrayList<Person> getPeople() {
@@ -73,6 +75,16 @@ public class DataManager {
 
     public static DatabaseReference getMainRoot() {
         return DBManager.getDb().getReference();
+    }
+
+    public static void updateCarMeet(CarMeet carMeet) {
+        // Find the index of the CarMeet object in the ArrayList
+        int index = carMeets.indexOf(carMeet);
+        if (index != -1) { // If the CarMeet object exists in the ArrayList
+            carMeets.set(index, carMeet); // Update the object
+            // Update the value in the database
+            DBManager.getDb().getReference(dbCarMeetList).setValue(carMeets);
+        }
     }
 
 

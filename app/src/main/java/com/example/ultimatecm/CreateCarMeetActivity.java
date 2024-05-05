@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -24,10 +23,8 @@ import java.util.Calendar;
 
 public class CreateCarMeetActivity extends AppCompatActivity {
     Button btnDone, btnSelectDate, btnSelectTime, btnAddTags, btnShowTags, btnLocation;
-    boolean privacy;
     ImageView ivExit;
-    Switch switchSettings;
-    TextView tvIsPublic, tvError;
+    TextView tvError;
     int verify = 0;
     CarMeet carMeet;
     Location location;
@@ -45,8 +42,6 @@ public class CreateCarMeetActivity extends AppCompatActivity {
         btnSelectTime = findViewById(R.id.btnSelectTime);
         btnSelectDate = findViewById(R.id.btnSelectDate);
         ivExit = findViewById(R.id.ivExit);
-        switchSettings = findViewById(R.id.switchSettings);
-        tvIsPublic = findViewById(R.id.tvIsPublic);
         tvError = findViewById(R.id.tvError);
 
         btnDone.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +55,7 @@ public class CreateCarMeetActivity extends AppCompatActivity {
                     tvError.setText("Please fill all the information before creating a new Car Meet");
                 } else {
                     carMeet = new CarMeet(btnSelectDate.getText().toString(), btnSelectTime.getText().toString()
-                            , selectedTagsList, privacy, location, getUsername());
+                            , selectedTagsList, location, getUsername());
                     DataManager.addNewCarMeet(carMeet);
                     finish();
                 }
@@ -85,16 +80,16 @@ public class CreateCarMeetActivity extends AppCompatActivity {
                 CheckBox cbOldCars = dialog.findViewById(R.id.cbOldCars);
                 CheckBox cbEveryoneWelcomed = dialog.findViewById(R.id.cbAllCars);
                 CheckBox cbNewCars = dialog.findViewById(R.id.cbNewCars);
-                CheckBox cbPublic = dialog.findViewById(R.id.cbPublic);
-                CheckBox cbPrivate = dialog.findViewById(R.id.cbPrivate);
+                CheckBox cbItalian = dialog.findViewById(R.id.cbItalian);
+                CheckBox cbGerman = dialog.findViewById(R.id.cbGerman);
 
                 // Set the checked state based on the array
                 cbAmericans.setChecked(tagCheckedState[0]);
                 cbOldCars.setChecked(tagCheckedState[1]);
                 cbEveryoneWelcomed.setChecked(tagCheckedState[2]);
                 cbNewCars.setChecked(tagCheckedState[3]);
-                cbPublic.setChecked(tagCheckedState[4]);
-                cbPrivate.setChecked(tagCheckedState[5]);
+                cbItalian.setChecked(tagCheckedState[4]);
+                cbGerman.setChecked(tagCheckedState[5]);
 
                 Button btnDoneTags = dialog.findViewById(R.id.btnDoneTags);
 
@@ -107,8 +102,8 @@ public class CreateCarMeetActivity extends AppCompatActivity {
                         tagCheckedState[1] = cbOldCars.isChecked();
                         tagCheckedState[2] = cbEveryoneWelcomed.isChecked();
                         tagCheckedState[3] = cbNewCars.isChecked();
-                        tagCheckedState[4] = cbPublic.isChecked();
-                        tagCheckedState[5] = cbPrivate.isChecked();
+                        tagCheckedState[4] = cbItalian.isChecked();
+                        tagCheckedState[5] = cbGerman.isChecked();
 
                         // Process selected tags
                         updateSelectedTags();
@@ -133,24 +128,24 @@ public class CreateCarMeetActivity extends AppCompatActivity {
                 CheckBox cbOldCars = dialog.findViewById(R.id.cbOldCars);
                 CheckBox cbEveryoneWelcomed = dialog.findViewById(R.id.cbAllCars);
                 CheckBox cbNewCars = dialog.findViewById(R.id.cbNewCars);
-                CheckBox cbPublic = dialog.findViewById(R.id.cbPublic);
-                CheckBox cbPrivate = dialog.findViewById(R.id.cbPrivate);
+                CheckBox cbItalian = dialog.findViewById(R.id.cbItalian);
+                CheckBox cbGerman = dialog.findViewById(R.id.cbGerman);
 
                 // Disable all checkboxes
                 cbAmericans.setEnabled(false);
                 cbOldCars.setEnabled(false);
                 cbEveryoneWelcomed.setEnabled(false);
                 cbNewCars.setEnabled(false);
-                cbPublic.setEnabled(false);
-                cbPrivate.setEnabled(false);
+                cbItalian.setEnabled(false);
+                cbGerman.setEnabled(false);
 
                 // Set the checked state based on the array
                 cbAmericans.setChecked(tagCheckedState[0]);
                 cbOldCars.setChecked(tagCheckedState[1]);
                 cbEveryoneWelcomed.setChecked(tagCheckedState[2]);
                 cbNewCars.setChecked(tagCheckedState[3]);
-                cbPublic.setChecked(tagCheckedState[4]);
-                cbPrivate.setChecked(tagCheckedState[5]);
+                cbItalian.setChecked(tagCheckedState[4]);
+                cbGerman.setChecked(tagCheckedState[5]);
 
                 Button btnDoneTags = dialog.findViewById(R.id.btnDoneTags);
 
@@ -188,13 +183,6 @@ public class CreateCarMeetActivity extends AppCompatActivity {
             }
         });
 
-        switchSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updatePublicStatus(switchSettings.isChecked());
-            }
-        });
-
     }
 
     static final int PICK_MAP_POINT_REQUEST = 999;  // The request code
@@ -219,16 +207,6 @@ public class CreateCarMeetActivity extends AppCompatActivity {
                 location.setLatitude((float) latLng.latitude);
                 location.setLongitude((float) latLng.longitude);
             }
-        }
-    }
-
-    public void updatePublicStatus(boolean isPublic) {
-        if (isPublic) {
-            tvIsPublic.setText("Public");
-            privacy = true;
-        } else {
-            tvIsPublic.setText("Private");
-            privacy = false;
         }
     }
 

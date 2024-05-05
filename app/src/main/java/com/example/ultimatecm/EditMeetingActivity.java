@@ -21,10 +21,9 @@ import java.util.Calendar;
 
 public class EditMeetingActivity extends AppCompatActivity {
     Button btnChangeLocation, btnChangeTags, btnCancel, btnSave, btnDate, btnTime;
-    Switch swhPrivacy;
     int verify = 0;
     Location location;
-    TextView tvError, tvIsPublic;
+    TextView tvError;
     boolean privacy;
 
     @Override
@@ -38,9 +37,7 @@ public class EditMeetingActivity extends AppCompatActivity {
         btnChangeTags = findViewById(R.id.btnChangeTags);
         btnCancel = findViewById(R.id.btnCancel);
         btnSave = findViewById(R.id.btnSave);
-        swhPrivacy = findViewById(R.id.swhPrivacy);
         tvError = findViewById(R.id.tvError);
-
         Intent intent = getIntent();
         privacy = intent.getBooleanExtra("PRIVACY", false);
 
@@ -71,12 +68,6 @@ public class EditMeetingActivity extends AppCompatActivity {
                 }
             });
 
-            swhPrivacy.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    updatePublicStatus(swhPrivacy.isChecked());
-                }
-            });
         }
 
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -169,13 +160,4 @@ public class EditMeetingActivity extends AppCompatActivity {
         }
     }
 
-    public void updatePublicStatus(boolean isPublic) {
-        if (isPublic) {
-            tvIsPublic.setText("Public");
-            privacy = true;
-        } else {
-            tvIsPublic.setText("Private");
-            privacy = false;
-        }
-    }
 }

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,7 +20,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class SignupActivity extends AppCompatActivity {
     ImageView ivExit;
@@ -67,8 +67,7 @@ public class SignupActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 ArrayList<CarMeet> myCarMeets = new ArrayList<CarMeet>();
                                 ArrayList<CarMeet> othersCarMeets = new ArrayList<CarMeet>();
-                                HashMap pfp = new HashMap();
-                                Person person = new Person(firstName, lastName, email, username, password, pfp, myCarMeets, othersCarMeets);
+                                Person person = new Person(firstName, lastName, email, username, password, myCarMeets, othersCarMeets);
                                 DataManager.addNewPerson(person);
                                 Log.d("User Auth", "User signed successfully");
                                 Toast.makeText(SignupActivity.this, "Successful sign up", Toast.LENGTH_SHORT).show();

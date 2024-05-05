@@ -29,17 +29,11 @@ public class CarMeetAdapter extends ArrayAdapter<CarMeet> {
 
         TextView tvTime = view.findViewById(R.id.tvTime);
         TextView tvDate = view.findViewById(R.id.tvDate);
-        TextView tvPrivacy = view.findViewById(R.id.tvPrivacy);
 
         CarMeet temp = objects.get(pos);
 
         tvTime.setText(temp.getTime());
         tvDate.setText(temp.getDate());
-        boolean privacy = temp.getPrivacy();
-        if (privacy)
-            tvPrivacy.setText("Public");
-        else
-            tvPrivacy.setText("Private");
 
         return view;
     }
