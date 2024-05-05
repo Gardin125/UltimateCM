@@ -21,6 +21,7 @@ public class MyCarMeetsActivity extends AppCompatActivity {
     CarMeetAdapter carMeetAdapter;
     ArrayList<CarMeet> carMeets;
     Person currentUser;
+    int pos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +55,7 @@ public class MyCarMeetsActivity extends AppCompatActivity {
         lvMyCM.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                pos = position;
                 lastSelected = carMeetAdapter.getItem(position);
                 Intent intent = new Intent(MyCarMeetsActivity.this, EditMeetingActivity.class);
                 intent.putExtra("DATE", lastSelected.getDate());
@@ -62,9 +64,10 @@ public class MyCarMeetsActivity extends AppCompatActivity {
                 intent.putExtra("LATITUDE", lastSelected.getLocation().getLatitude());
                 intent.putExtra("TAGS", lastSelected.getTags());
                 intent.putExtra("PRIVACY", lastSelected.getPrivacy());
-                startActivity(intent);
+                startActivityForResult(intent, 0); // Start EditMeetingActivity with requestCode 0
             }
         });
+
 
     }
     @Override
@@ -79,8 +82,14 @@ public class MyCarMeetsActivity extends AppCompatActivity {
                 String time = data.getExtras().getString("TIME");
                 float longitude = data.getExtras().getFloat("LONGITUDE");
                 float latitude = data.getExtras().getFloat("LATITUDE");
-                ArrayList<Tag> tags = (ArrayList<Tag>) data.getExtras().get("TAGS");
+                ArrayList<String> tags = (ArrayList<String>) data.getExtras().get("TAGS");
                 boolean privacy = data.getExtras().getBoolean("PRIVACY");
+                Location updatedLocation = new Location(latitude, longitude);
+                lastSelected.setDate(date);
+                lastSelected.setTime(time);
+                lastSelected.setLocation(updatedLocation);
+                lastSelected.setTags(tags);
+                lastSelected.setPrivacy(privacy);
                 carMeetAdapter.notifyDataSetChanged();
                 Toast.makeText(this, "Data Saved.", Toast.LENGTH_LONG).show();
             } else if (resultCode == RESULT_CANCELED) {

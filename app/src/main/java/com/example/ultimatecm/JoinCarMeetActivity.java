@@ -23,7 +23,6 @@ public class JoinCarMeetActivity extends AppCompatActivity {
     ArrayList<CarMeet> carMeetArrayList, othersCarMeetArrayList;
     ListView lv;
     CarMeetAdapter cmAdapter;
-    CarMeet lastSelected;
     Person currentUser;
 
     @Override
@@ -39,16 +38,27 @@ public class JoinCarMeetActivity extends AppCompatActivity {
             }
         });
 
+        for (Person person : DataManager.getPeople()) {
+            if (person.getUsername().equals(getUsername())) {
+                currentUser = person;
+                break;
+            }
+        }
+
         carMeetArrayList = new ArrayList<CarMeet>();
         for (int i = 0; i < DataManager.getCarMeets().size(); i++) {
             if (!DataManager.getCarMeets().get(i).getCreator().equals(getUsername())) {
-                CarMeet carMeet = new CarMeet(DataManager.getCarMeets().get(i).getDate(),
-                        DataManager.getCarMeets().get(i).getTime(),
-                        DataManager.getCarMeets().get(i).getTags(),
-                        DataManager.getCarMeets().get(i).getPrivacy(),
-                        DataManager.getCarMeets().get(i).getLocation(),
-                        DataManager.getCarMeets().get(i).getCreator());
-                carMeetArrayList.add(carMeet);
+                for (int j = 0; j < currentUser.getOthersCarMeets().size(); j++) {
+                    if (!currentUser.getOthersCarMeets().get(j).isEqual(DataManager.getCarMeets().get(i))) {
+                        CarMeet carMeet = new CarMeet(DataManager.getCarMeets().get(i).getDate(),
+                                DataManager.getCarMeets().get(i).getTime(),
+                                DataManager.getCarMeets().get(i).getTags(),
+                                DataManager.getCarMeets().get(i).getPrivacy(),
+                                DataManager.getCarMeets().get(i).getLocation(),
+                                DataManager.getCarMeets().get(i).getCreator());
+                        carMeetArrayList.add(carMeet);
+                    }
+                }
             }
         }
 
@@ -65,15 +75,6 @@ public class JoinCarMeetActivity extends AppCompatActivity {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                currentUser = null; // Reset currentUser
-
-                                // Find the current user by username
-                                for (Person person : DataManager.getPeople()) {
-                                    if (person.getUsername().equals(getUsername())) {
-                                        currentUser = person;
-                                        break;
-                                    }
-                                }
 
                                 // Check if currentUser is found
                                 if (currentUser != null) {

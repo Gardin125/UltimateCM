@@ -20,12 +20,11 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.Calendar;
 
 public class EditMeetingActivity extends AppCompatActivity {
-    EditText etDate, etTime;
-    Button btnChangeLocation, btnChangeTags, btnCancel, btnSave;
+    Button btnChangeLocation, btnChangeTags, btnCancel, btnSave, btnDate, btnTime;
     Switch swhPrivacy;
     int verify = 0;
     Location location;
-    TextView tvError;
+    TextView tvError, tvIsPublic;
     boolean privacy;
 
     @Override
@@ -33,8 +32,8 @@ public class EditMeetingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_meeting_activity);
 
-        etDate = findViewById(R.id.etDate);
-        etTime = findViewById(R.id.etTime);
+        btnDate = findViewById(R.id.btnDate);
+        btnTime = findViewById(R.id.btnTime);
         btnChangeLocation = findViewById(R.id.btnChangeLocation);
         btnChangeTags = findViewById(R.id.btnChangeTags);
         btnCancel = findViewById(R.id.btnCancel);
@@ -44,16 +43,21 @@ public class EditMeetingActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         privacy = intent.getBooleanExtra("PRIVACY", false);
+
+        String prevDate = intent.getStringExtra("DATE"), prevTime  = intent.getStringExtra("TIME");
+        location = new Location(intent.getFloatExtra("LATITUDE",0), intent.getFloatExtra("LONGITUDE",0));
         if (intent.getExtras() != null)
         {
-            etDate.setOnClickListener(new View.OnClickListener() {
+            btnDate.setText(intent.getStringExtra("DATE"));
+            btnTime.setText(intent.getStringExtra("TIME"));
+            btnDate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     createDateDialog();
                 }
             });
 
-            etTime.setOnClickListener(new View.OnClickListener() {
+            btnTime.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     createTimeDialog();
@@ -78,18 +82,18 @@ public class EditMeetingActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (etDate.getText().toString().length() > 0 && etTime.getText().toString().length() > 0 && verify != 0)
+                if (btnDate.getText().toString() != prevDate || btnTime.getText().toString() != prevTime || verify != 0)
                 {
                     Intent intent = new Intent();
-                    intent.putExtra("DATE", etDate.getText().toString());
-                    intent.putExtra("TIME", etTime.getText().toString());
-                    intent.putExtra("LOCATION LATITUDE", location.getLatitude());
-                    intent.putExtra("LOCATION LONGITUDE", location.getLongitude());
-                    setResult(RESULT_OK);
+                    intent.putExtra("DATE", btnDate.getText().toString());
+                    intent.putExtra("TIME", btnTime.getText().toString());
+                    intent.putExtra("LATITUDE", location.getLatitude());
+                    intent.putExtra("LONGITUDE", location.getLongitude());
+                    setResult(RESULT_OK, intent);
                     finish();
                 }
                 else {
-                    tvError.setText("Please fill all the information .");
+                    tvError.setText("Please change at least 1 thing.");
                 }
             }
         });
@@ -153,7 +157,7 @@ public class EditMeetingActivity extends AppCompatActivity {
             monthOfYear += 1;
             String str = dayOfMonth + "/" + monthOfYear + "/" + year;
             Toast.makeText(EditMeetingActivity.this, str, Toast.LENGTH_LONG).show();
-            etDate.setText(str);
+            btnDate.setText(str);
         }
     }
 
@@ -161,16 +165,16 @@ public class EditMeetingActivity extends AppCompatActivity {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             String str = hourOfDay + ":" + minute;
-            etTime.setText(str);
+            btnTime.setText(str);
         }
     }
 
     public void updatePublicStatus(boolean isPublic) {
         if (isPublic) {
-            swhPrivacy.setText("Public");
+            tvIsPublic.setText("Public");
             privacy = true;
         } else {
-            swhPrivacy.setText("Private");
+            tvIsPublic.setText("Private");
             privacy = false;
         }
     }

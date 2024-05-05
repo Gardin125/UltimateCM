@@ -70,4 +70,18 @@ public class CarMeet implements Serializable {
     public void setCreator(String creator) {
         this.creator = creator;
     }
+
+    // Method to compare two CarMeet objects
+    public boolean isEqual(CarMeet other) {
+        // Check if all attributes are the same
+        boolean dateEqual = this.date.equals(other.date);
+        boolean timeEqual = this.time.equals(other.time);
+        boolean tagsEqual = this.tags.equals(other.tags);
+        boolean privacyEqual = this.privacy == other.privacy;
+        boolean locationEqual = this.location.equals(other.location);
+        boolean creatorEqual = this.creator.equals(other.creator);
+
+        // Return true if all attributes are equal, false otherwise
+        return dateEqual && timeEqual && tagsEqual && privacyEqual && locationEqual && creatorEqual;
+    }
 }

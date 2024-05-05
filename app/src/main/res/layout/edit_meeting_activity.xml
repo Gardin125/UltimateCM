@@ -6,23 +6,32 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/etDate"
-        android:layout_width="210dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#d9a737"
-        android:hint="date"
-        android:textColorHint="#d9a737"
-        android:textSize="30sp" />
+        android:layout_marginBottom="10dp">
 
-    <EditText
-        android:id="@+id/etTime"
-        android:layout_width="210dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#d9a737"
-        android:hint="time"
-        android:textColorHint="#d9a737"
-        android:textSize="30sp" />
+        <Button
+            android:id="@+id/btnDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_button"
+            android:text="Select Date"
+            android:textAllCaps="false"
+            android:textColor="#949398" />
+
+        <Button
+            android:id="@+id/btnTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:background="@drawable/custom_yellow_button"
+            android:text="Select Time"
+            android:textAllCaps="false"
+            android:textColor="#d9a737" />
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -33,30 +42,44 @@
             android:id="@+id/btnChangeLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:backgroundTint="#d9a737"
+            android:layout_marginRight="35dp"
+            android:background="@drawable/custom_yellow_button"
             android:text="Location"
             android:textAllCaps="false"
+            android:textColor="#d9a737"
             android:textSize="20dp" />
 
         <Button
             android:id="@+id/btnChangeTags"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#d9a737"
+            android:background="@drawable/custom_button"
             android:text="Tags"
             android:textAllCaps="false"
+            android:textColor="#949398"
             android:textSize="20dp" />
 
     </LinearLayout>
 
-    <Switch
-        android:id="@+id/swhPrivacy"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Public"
-        android:textColor="#d9a737"
-        android:textSize="30dp" />
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Private"
+            android:textColor="#d9a737"
+            android:textSize="30dp"
+            android:layout_marginRight="60dp"/>
+
+        <Switch
+            android:id="@+id/swhPrivacy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/btnSave"
@@ -67,7 +90,7 @@
         android:text="Save"
         android:textAllCaps="false"
         android:textColor="#949398"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/btnCancel"
