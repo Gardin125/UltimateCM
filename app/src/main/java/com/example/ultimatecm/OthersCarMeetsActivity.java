@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -37,18 +38,37 @@ public class OthersCarMeetsActivity extends AppCompatActivity {
         String username = getUsername();
 
         // Find the current user in the data manager
-        for (int i = 0; i < DataManager.getPeople().size(); i++) {
-            if (DataManager.getPeople().get(i).username.equals(username))
-                currentUser = DataManager.getPeople().get(i);
-        }
-
-        // Create a list to store car meets that the user did not create
-        ArrayList<CarMeet> othersCMList = new ArrayList<>();
-        for (int i = 0; i < DataManager.getCarMeets().size(); i++) {
-            if (!DataManager.getCarMeets().get(i).getCreator().equals(username)) {
-                othersCMList.add(DataManager.getCarMeets().get(i));
+        for (Person person : DataManager.getPeople()) {
+            if (person.getUsername().equals(username)) {
+                currentUser = person;
+                break;
             }
         }
+
+        if (currentUser == null) {
+            Log.e("OthersCarMeetsActivity", "Current user not found");
+            return;
+        }
+
+        // Initialize the othersCarMeetArrayList if it's null
+        if (currentUser.getOthersCarMeets() == null) {
+            currentUser.setOthersCarMeets(new ArrayList<>());
+        }
+
+        // Debugging: Log the size of the othersCarMeets list
+        Log.d("OthersCarMeetsActivity", "OthersCarMeets size: " + currentUser.getOthersCarMeets().size());
+
+        // Create a list to store car meets that the user did not create but joined
+        ArrayList<CarMeet> othersCMList = new ArrayList<>();
+        for (CarMeet carMeet : DataManager.getCarMeets()) {
+            // Check if the car meet is not created by the current user but is joined by the user
+            if (!carMeet.getCreator().equals(username)) {
+                othersCMList.add(carMeet);
+            }
+        }
+
+        // Debugging: Log the size of the othersCMList
+        Log.d("OthersCarMeetsActivity", "Filtered OthersCMList size: " + othersCMList.size());
 
         // Initialize the adapter with the list of car meets
         carMeetAdapter = new CarMeetAdapter(this, 0, 0, othersCMList);
@@ -70,6 +90,7 @@ public class OthersCarMeetsActivity extends AppCompatActivity {
             }
         });
     }
+
 
     public String getUsername() {
         String username = "";

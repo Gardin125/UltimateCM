@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,22 +7,15 @@
     android:orientation="vertical"
     android:background="#949398"
     android:padding="16dp"
-    tools:context=".SecurityActivity">
+    tools:context=".SecurityFragment">
 
-    <ImageView
-        android:id="@+id/ivExit"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@drawable/back"
-        android:clickable="true"
-        android:layout_gravity="start"
-        android:layout_marginBottom="16dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Security Settings"
         android:textSize="24sp"
+        android:layout_marginTop="50dp"
         android:textStyle="bold"
         android:layout_gravity="center_horizontal"
         android:textColor="#d9a737"
@@ -33,10 +26,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Change Password"
+        android:layout_marginTop="100dp"
         android:backgroundTint="#d9a737"
         android:textColor="#949398"
         android:layout_marginBottom="16dp"/>
 
 
 
-</LinearLayout>
+</FrameLayout>

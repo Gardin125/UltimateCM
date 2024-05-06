@@ -1,45 +1,40 @@
 package com.example.ultimatecm;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
-public class SecurityActivity extends AppCompatActivity {
-    ImageView ivExit;
+public class SecurityFragment extends Fragment {
+
     Button btnChangePassword;
     Person currentUser;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_security);
-        ivExit = findViewById(R.id.ivExit);
-        btnChangePassword = findViewById(R.id.btnChangePassword);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_security, container, false);
+
+        btnChangePassword = view.findViewById(R.id.btnChangePassword);
 
         currentUser = getLoggedInPerson();
 
-        ivExit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         btnChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Open dialog to change password
-                Dialog dialog = new Dialog(SecurityActivity.this);
+                Dialog dialog = new Dialog(requireContext());
                 dialog.setContentView(R.layout.change_password_dialog);
 
                 // Get views from dialog layout
@@ -64,7 +59,7 @@ public class SecurityActivity extends AppCompatActivity {
                             // Optionally, you can save the updated password to the database here
                             dialog.dismiss(); // Dismiss the dialog
                             // Show success message
-                            Toast.makeText(SecurityActivity.this, "Password changed successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireContext(), "Password changed successfully", Toast.LENGTH_SHORT).show();
                         } else {
                             // Either current password is incorrect or new passwords do not match
                             // Show error message
@@ -75,16 +70,15 @@ public class SecurityActivity extends AppCompatActivity {
                                 errorMessage = "Passwords do not match.";
                             }
                             // Create and show an AlertDialog for error message
-                            AlertDialog.Builder builder = new AlertDialog.Builder(SecurityActivity.this);
-                            builder.setMessage(errorMessage)
+                            new AlertDialog.Builder(requireContext())
+                                    .setMessage(errorMessage)
                                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             // User clicked OK button
                                         }
-                                    });
-                            // Create the AlertDialog object and show it
-                            AlertDialog alertDialog = builder.create();
-                            alertDialog.show();
+                                    })
+                                    .create()
+                                    .show();
                         }
                     }
                 });
@@ -93,7 +87,7 @@ public class SecurityActivity extends AppCompatActivity {
             }
         });
 
-
+        return view;
     }
 
     public Person getLoggedInPerson() {

@@ -28,35 +28,22 @@ public class CreateCarMeetActivity extends AppCompatActivity {
     int verify = 0;
     CarMeet carMeet;
     Location location;
-    private ArrayList<String> selectedTagsList = new ArrayList<String>();
+    private ArrayList<String> selectedTagsList = new ArrayList<>();
     private boolean[] tagCheckedState = new boolean[6]; // 6 tags
+    private static final int PICK_MAP_POINT_REQUEST = 999; // The request code
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_meeting);
-        btnDone = findViewById(R.id.btnDone);
-        btnLocation = findViewById(R.id.btnLocation);
-        btnAddTags = findViewById(R.id.btnAddTags);
-        btnShowTags = findViewById(R.id.btnShowTags);
-        btnSelectTime = findViewById(R.id.btnSelectTime);
-        btnSelectDate = findViewById(R.id.btnSelectDate);
-        ivExit = findViewById(R.id.ivExit);
-        tvError = findViewById(R.id.tvError);
+
+        initializeViews();
 
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (btnSelectDate.getText().toString().equals("Select Date")) {
-                    tvError.setText("Please select a date.");
-                } else if (btnSelectTime.getText().toString().equals("Select Time")) {
-                    tvError.setText("Please select a time.");
-                } else if (verify == 0) {
-                    tvError.setText("Please fill all the information before creating a new Car Meet");
-                } else {
-                    carMeet = new CarMeet(btnSelectDate.getText().toString(), btnSelectTime.getText().toString()
-                            , selectedTagsList, location, getUsername());
-                    DataManager.addNewCarMeet(carMeet);
+                if (validateInputs()) {
+                    createCarMeet();
                     finish();
                 }
             }
@@ -72,95 +59,16 @@ public class CreateCarMeetActivity extends AppCompatActivity {
         btnAddTags.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dialog dialog = new Dialog(CreateCarMeetActivity.this);
-                dialog.setContentView(R.layout.dialog_tags);
-
-                // Find checkboxes and button in the dialog
-                CheckBox cbAmericans = dialog.findViewById(R.id.cbAmericans);
-                CheckBox cbOldCars = dialog.findViewById(R.id.cbOldCars);
-                CheckBox cbEveryoneWelcomed = dialog.findViewById(R.id.cbAllCars);
-                CheckBox cbNewCars = dialog.findViewById(R.id.cbNewCars);
-                CheckBox cbItalian = dialog.findViewById(R.id.cbItalian);
-                CheckBox cbGerman = dialog.findViewById(R.id.cbGerman);
-
-                // Set the checked state based on the array
-                cbAmericans.setChecked(tagCheckedState[0]);
-                cbOldCars.setChecked(tagCheckedState[1]);
-                cbEveryoneWelcomed.setChecked(tagCheckedState[2]);
-                cbNewCars.setChecked(tagCheckedState[3]);
-                cbItalian.setChecked(tagCheckedState[4]);
-                cbGerman.setChecked(tagCheckedState[5]);
-
-                Button btnDoneTags = dialog.findViewById(R.id.btnDoneTags);
-
-                // Handle the "Done" button click
-                btnDoneTags.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // Update the boolean array with the current checked state
-                        tagCheckedState[0] = cbAmericans.isChecked();
-                        tagCheckedState[1] = cbOldCars.isChecked();
-                        tagCheckedState[2] = cbEveryoneWelcomed.isChecked();
-                        tagCheckedState[3] = cbNewCars.isChecked();
-                        tagCheckedState[4] = cbItalian.isChecked();
-                        tagCheckedState[5] = cbGerman.isChecked();
-
-                        // Process selected tags
-                        updateSelectedTags();
-
-                        // Dismiss the dialog
-                        dialog.dismiss();
-                    }
-                });
-
-                dialog.show();
+                showTagsDialog();
             }
         });
 
         btnShowTags.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dialog dialog = new Dialog(CreateCarMeetActivity.this);
-                dialog.setContentView(R.layout.dialog_tags);
-
-                // Find checkboxes and button in the dialog
-                CheckBox cbAmericans = dialog.findViewById(R.id.cbAmericans);
-                CheckBox cbOldCars = dialog.findViewById(R.id.cbOldCars);
-                CheckBox cbEveryoneWelcomed = dialog.findViewById(R.id.cbAllCars);
-                CheckBox cbNewCars = dialog.findViewById(R.id.cbNewCars);
-                CheckBox cbItalian = dialog.findViewById(R.id.cbItalian);
-                CheckBox cbGerman = dialog.findViewById(R.id.cbGerman);
-
-                // Disable all checkboxes
-                cbAmericans.setEnabled(false);
-                cbOldCars.setEnabled(false);
-                cbEveryoneWelcomed.setEnabled(false);
-                cbNewCars.setEnabled(false);
-                cbItalian.setEnabled(false);
-                cbGerman.setEnabled(false);
-
-                // Set the checked state based on the array
-                cbAmericans.setChecked(tagCheckedState[0]);
-                cbOldCars.setChecked(tagCheckedState[1]);
-                cbEveryoneWelcomed.setChecked(tagCheckedState[2]);
-                cbNewCars.setChecked(tagCheckedState[3]);
-                cbItalian.setChecked(tagCheckedState[4]);
-                cbGerman.setChecked(tagCheckedState[5]);
-
-                Button btnDoneTags = dialog.findViewById(R.id.btnDoneTags);
-
-                // Handle the "Done" button click
-                btnDoneTags.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-
-                dialog.show();
+                showTagsDialog();
             }
         });
-
 
         btnSelectDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,14 +90,115 @@ public class CreateCarMeetActivity extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 
-    static final int PICK_MAP_POINT_REQUEST = 999;  // The request code
+    private void initializeViews() {
+        btnDone = findViewById(R.id.btnDone);
+        btnLocation = findViewById(R.id.btnLocation);
+        btnAddTags = findViewById(R.id.btnAddTags);
+        btnShowTags = findViewById(R.id.btnShowTags);
+        btnSelectTime = findViewById(R.id.btnSelectTime);
+        btnSelectDate = findViewById(R.id.btnSelectDate);
+        ivExit = findViewById(R.id.ivExit);
+        tvError = findViewById(R.id.tvError);
+    }
+
+    private boolean validateInputs() {
+        if (btnSelectDate.getText().toString().equals("Select Date")) {
+            tvError.setText("Please select a date.");
+            return false;
+        } else if (btnSelectTime.getText().toString().equals("Select Time")) {
+            tvError.setText("Please select a time.");
+            return false;
+        } else if (location == null) {
+            tvError.setText("Please select a location.");
+            return false;
+        }
+        return true;
+    }
+
+    private void createCarMeet() {
+        carMeet = new CarMeet(btnSelectDate.getText().toString(), btnSelectTime.getText().toString(),
+                selectedTagsList, location, getUsername());
+        DataManager.addNewCarMeet(carMeet);
+        Person currentUser = DataManager.getCurrentLoggedInPersonByUsername(getUsername());
+        if (currentUser != null) {
+            currentUser.getMyCarMeets().add(carMeet);
+        }
+    }
 
     private void pickPointOnMap() {
         Intent pickPointIntent = new Intent(this, MapsActivity.class);
+        pickPointIntent.putExtra("fromCreateCarMeet", true); // Set to true when starting from CreateCarMeetActivity
         startActivityForResult(pickPointIntent, PICK_MAP_POINT_REQUEST);
+    }
+
+
+    private void showTagsDialog() {
+        Dialog dialog = new Dialog(CreateCarMeetActivity.this);
+        dialog.setContentView(R.layout.dialog_tags);
+
+        // Find checkboxes and button in the dialog
+        CheckBox cbAmericans = dialog.findViewById(R.id.cbAmericans);
+        CheckBox cbOldCars = dialog.findViewById(R.id.cbOldCars);
+        CheckBox cbEveryoneWelcomed = dialog.findViewById(R.id.cbAllCars);
+        CheckBox cbNewCars = dialog.findViewById(R.id.cbNewCars);
+        CheckBox cbItalian = dialog.findViewById(R.id.cbItalian);
+        CheckBox cbGerman = dialog.findViewById(R.id.cbGerman);
+
+        // Set the checked state based on the array
+        cbAmericans.setChecked(tagCheckedState[0]);
+        cbOldCars.setChecked(tagCheckedState[1]);
+        cbEveryoneWelcomed.setChecked(tagCheckedState[2]);
+        cbNewCars.setChecked(tagCheckedState[3]);
+        cbItalian.setChecked(tagCheckedState[4]);
+        cbGerman.setChecked(tagCheckedState[5]);
+
+        Button btnDoneTags = dialog.findViewById(R.id.btnDoneTags);
+
+        // Handle the "Done" button click
+        btnDoneTags.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Update the boolean array with the current checked state
+                tagCheckedState[0] = cbAmericans.isChecked();
+                tagCheckedState[1] = cbOldCars.isChecked();
+                tagCheckedState[2] = cbEveryoneWelcomed.isChecked();
+                tagCheckedState[3] = cbNewCars.isChecked();
+                tagCheckedState[4] = cbItalian.isChecked();
+                tagCheckedState[5] = cbGerman.isChecked();
+
+                // Process selected tags
+                updateSelectedTags();
+
+                // Dismiss the dialog
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+    private void updateSelectedTags() {
+        selectedTagsList.clear(); // Clear the ArrayList
+
+        if (tagCheckedState[0]) {
+            selectedTagsList.add("#Americans");
+        }
+        if (tagCheckedState[1]) {
+            selectedTagsList.add("#Old Cars");
+        }
+        if (tagCheckedState[2]) {
+            selectedTagsList.add("#Everyone Welcomed");
+        }
+        if (tagCheckedState[3]) {
+            selectedTagsList.add("#New Cars");
+        }
+        if (tagCheckedState[4]) {
+            selectedTagsList.add("#Public");
+        }
+        if (tagCheckedState[5]) {
+            selectedTagsList.add("#Private");
+        }
     }
 
     @Override
@@ -198,7 +207,7 @@ public class CreateCarMeetActivity extends AppCompatActivity {
         if (requestCode == PICK_MAP_POINT_REQUEST) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
-                LatLng latLng = (LatLng) data.getParcelableExtra("picked_point");
+                LatLng latLng = data.getParcelableExtra("picked_point");
                 verify = data.getIntExtra("VERIFY", 0);
                 Toast.makeText(this, "Point Chosen: " + latLng.latitude + " " + latLng.longitude, Toast.LENGTH_LONG).show();
 
@@ -206,6 +215,13 @@ public class CreateCarMeetActivity extends AppCompatActivity {
                 location = new Location();
                 location.setLatitude((float) latLng.latitude);
                 location.setLongitude((float) latLng.longitude);
+
+                // Start MapsActivity with the selected location
+                Intent mapIntent = new Intent(CreateCarMeetActivity.this, MapsActivity.class);
+                mapIntent.putExtra("latitude", location.getLatitude());
+                mapIntent.putExtra("longitude", location.getLongitude());
+                mapIntent.putExtra("fromCreateCarMeet", true); // Add this line to indicate it's from CreateCarMeetActivity
+                startActivity(mapIntent);
             }
         }
     }
@@ -242,29 +258,6 @@ public class CreateCarMeetActivity extends AppCompatActivity {
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             String str = hourOfDay + ":" + minute;
             btnSelectTime.setText(str);
-        }
-    }
-
-    private void updateSelectedTags() {
-        selectedTagsList.clear(); // Clear the ArrayList
-
-        if (tagCheckedState[0]) {
-            selectedTagsList.add("#Americans");
-        }
-        if (tagCheckedState[1]) {
-            selectedTagsList.add("#Old Cars");
-        }
-        if (tagCheckedState[2]) {
-            selectedTagsList.add("#Everyone Welcomed");
-        }
-        if (tagCheckedState[3]) {
-            selectedTagsList.add("#New Cars");
-        }
-        if (tagCheckedState[4]) {
-            selectedTagsList.add("#Public");
-        }
-        if (tagCheckedState[5]) {
-            selectedTagsList.add("#Private");
         }
     }
 

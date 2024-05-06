@@ -11,9 +11,28 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:id="@+id/frame_layout"
         android:layout_weight="1">
 
-        <!-- Your content goes here -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#d9a737"
+            android:id="@+id/tvWelcomeMsg"
+            android:textSize="20dp"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="150dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Use the bottom navigator to move between the sections"
+            android:textAlignment="center"
+            android:textColor="#d9a737"
+            android:textSize="30dp"
+            android:layout_gravity="center"
+            />
 
     </FrameLayout>
 

@@ -11,9 +11,13 @@
         android:icon="@drawable/baseline_directions_car_24" />
 
     <item
-        android:id="@+id/settings"
-        android:title="Settings"
+        android:id="@+id/security"
+        android:title="Security"
         android:icon="@drawable/baseline_settings_24" />
+    <item
+        android:id="@+id/carGame"
+        android:title="Car Tester"
+        android:icon="@drawable/engine" />
 
     <item
         android:id="@+id/profile"

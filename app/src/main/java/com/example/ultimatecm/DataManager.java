@@ -35,7 +35,8 @@ public class DataManager {
         DBManager.getDb().getReference(dbMainList).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                GenericTypeIndicator<ArrayList<Person>> t = new GenericTypeIndicator<ArrayList<Person>>() {};
+                GenericTypeIndicator<ArrayList<Person>> t = new GenericTypeIndicator<ArrayList<Person>>() {
+                };
                 people = snapshot.getValue(t);
             }
 
@@ -50,7 +51,8 @@ public class DataManager {
         DBManager.getDb().getReference(dbCarMeetList).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                GenericTypeIndicator<ArrayList<CarMeet>> t = new GenericTypeIndicator<ArrayList<CarMeet>>() {};
+                GenericTypeIndicator<ArrayList<CarMeet>> t = new GenericTypeIndicator<ArrayList<CarMeet>>() {
+                };
                 carMeets = snapshot.getValue(t);
             }
 
@@ -78,14 +80,45 @@ public class DataManager {
     }
 
     public static void updateCarMeet(CarMeet carMeet) {
-        // Find the index of the CarMeet object in the ArrayList
-        int index = carMeets.indexOf(carMeet);
-        if (index != -1) { // If the CarMeet object exists in the ArrayList
-            carMeets.set(index, carMeet); // Update the object
-            // Update the value in the database
-            DBManager.getDb().getReference(dbCarMeetList).setValue(carMeets);
+        DBManager.getDb().getReference(dbCarMeetList).setValue(carMeets);
+    }
+
+    public static void updatePerson(Person person, OnSuccessListener<Void> user_data_updated_successfully, OnFailureListener failed_to_update_user_data) {
+        for (int i = 0; i < people.size(); i++) {
+            // Find the person in the list
+            if (people.get(i).getUsername().equals(person.getUsername())) {
+                // Update the person's data
+                people.set(i, person);
+                break;
+            }
         }
+        // Save the updated list to the database
+        DBManager.getDb().getReference(dbMainList).setValue(people);
+    }
+
+    public static Person getCurrentLoggedInPersonByEmail(String email) {
+        if (people != null) {
+            for (Person person : people) {
+                if (person.getEmail().equals(email)) {
+                    return person;
+                }
+            }
+        }
+        return null;
     }
 
 
+    public static Person getCurrentLoggedInPersonByUsername(String username) {
+        if (people != null) {
+            for (Person person : people) {
+                if (person.getUsername().equals(username)) {
+                    return person;
+                }
+            }
+        }
+        return null;
+    }
 }
+
+
+

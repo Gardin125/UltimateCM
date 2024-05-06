@@ -34,8 +34,8 @@ import android.Manifest;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private double latitude;
-    private double longitude;
+    private float latitude;
+    private float longitude;
 
 
     @Override
@@ -51,20 +51,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Retrieve latitude and longitude from intent extras
         Intent intent = getIntent();
-        latitude = intent.getDoubleExtra("latitude", 0);
-        longitude = intent.getDoubleExtra("longitude", 0);
+        boolean fromCreateCarMeet = intent.getBooleanExtra("fromCreateCarMeet", false);
 
-        // Check if latitude and longitude are provided
-        if (latitude != 0 && longitude != 0) {
-            // Create LatLng object from latitude and longitude
-            LatLng carMeetLocation = new LatLng(latitude, longitude);
-
-            // Add a marker at the car meet location and move the camera
-            mMap.addMarker(new MarkerOptions().position(carMeetLocation).title("Car Meet Location"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(carMeetLocation, 15));
-        } else {
+        if (fromCreateCarMeet) {
             // Allow the user to pick a new point
             mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                 @Override
@@ -76,6 +66,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     finish();
                 }
             });
+        } else {
+            // Retrieve latitude and longitude from intent extras
+            float latitude = intent.getFloatExtra("latitude", 0);
+            float longitude = intent.getFloatExtra("longitude", 0);
+            LatLng carMeetLocation = new LatLng(latitude, longitude);
+
+            // Add a marker at the car meet location and move the camera
+            MarkerOptions mO = new MarkerOptions();
+            mO.title("Car Meet Location");
+            mO.position(carMeetLocation);
+            mMap.addMarker(mO);
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(carMeetLocation, 15));
         }
     }
 
