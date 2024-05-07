@@ -37,9 +37,7 @@ public class HomePageActivity extends AppCompatActivity{
             } else if (item.getItemId() == R.id.logout) {
                 finish();
                 return true;
-            } /*else if (item.getItemId() == R.id.carGame) {
-                replaceFragment();
-            } */
+            }
             return false;
         });
     }
