@@ -18,6 +18,7 @@ import com.google.firebase.auth.AuthResult;
 public class LoginActivity extends AppCompatActivity {
     EditText etEmail, etPassword;
     Button btnSignUp, btnLogin;
+    boolean emailExists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,16 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
+
+                // Check if the entered email exists in the database
+                emailExists = false;
+                for (Person p : DataManager.getPeople()) {
+                    if (p.getEmail().equals(email)) {
+                        emailExists = true;
+                        break;
+                    }
+                }
+
                 // Attempt to sign in with email and password
                 DBManager.getAuth().signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -51,8 +62,10 @@ public class LoginActivity extends AppCompatActivity {
                                     // If login is successful, navigate to the home page
                                     openHomePage();
                                 } else {
-                                    // If login fails, show an error message
-                                    showInvalidCredentialsDialog("Invalid email or password. Please try again.");
+                                    // If email does not exist in the database, prompt user to fix email or create new account
+                                    if (!emailExists) {
+                                        fixEmailOrCreateNewUserDialog("Please make sure that the email is correct or create a new account with this email");
+                                    }
                                 }
                             }
                         });
@@ -86,6 +99,30 @@ public class LoginActivity extends AppCompatActivity {
         });
         builder.create().show();
     }
+
+    private void fixEmailOrCreateNewUserDialog(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Email is wrong or user doesn't exist");
+        builder.setMessage(message);
+        builder.setPositiveButton("Fix Email", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.setNegativeButton("Create New User", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent createNewAccIntent = new Intent(LoginActivity.this, SignupActivity.class);
+                createNewAccIntent.putExtra("EMAIL", etEmail.getText().toString());
+                createNewAccIntent.putExtra("CHECK", true); // Set CHECK to true
+                startActivity(createNewAccIntent);
+            }
+        });
+        builder.create().show();
+    }
+
 
     public void openHomePage() {
         Intent intent = new Intent(this, HomePageActivity.class);
