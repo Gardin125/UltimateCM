@@ -216,12 +216,6 @@ public class CreateCarMeetActivity extends AppCompatActivity {
                 location.setLatitude((float) latLng.latitude);
                 location.setLongitude((float) latLng.longitude);
 
-                // Start MapsActivity with the selected location
-                Intent mapIntent = new Intent(CreateCarMeetActivity.this, MapsActivity.class);
-                mapIntent.putExtra("latitude", location.getLatitude());
-                mapIntent.putExtra("longitude", location.getLongitude());
-                mapIntent.putExtra("fromCreateCarMeet", true); // Add this line to indicate it's from CreateCarMeetActivity
-                startActivity(mapIntent);
             }
         }
     }
