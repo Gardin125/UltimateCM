@@ -1,5 +1,6 @@
 package com.example.ultimatecm;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+
 import java.util.ArrayList;
 
 public class MyCarMeetsActivity extends AppCompatActivity {
@@ -18,15 +22,14 @@ public class MyCarMeetsActivity extends AppCompatActivity {
     CarMeet lastSelected;
     CarMeetAdapter carMeetAdapter;
     Person currentUser;
-    ArrayList<CarMeet> myCMList; // Declare myCMList as a member variable
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_car_meets);
+        DataManager.pullPeople();
         ivExit = findViewById(R.id.ivSecurity);
         lvMyCM = findViewById(R.id.lvMyCM);
-        currentUser = new Person();
 
         ivExit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,24 +38,18 @@ public class MyCarMeetsActivity extends AppCompatActivity {
             }
         });
 
-        for (int i = 0; i < DataManager.getPeople().size(); i++) {
-            if (DataManager.getPeople().get(i).username.equals(getUsername()))
-                currentUser = DataManager.getPeople().get(i);
+        currentUser = DataManager.getCurrentLoggedInPersonByUsername(getUsername());
+        if (currentUser.getMyCarMeets() == null)
+            Toast.makeText(this,"Null", Toast.LENGTH_SHORT).show();
+        else {
+            carMeetAdapter = new CarMeetAdapter(this, 0, 0, currentUser.getMyCarMeets());
+            lvMyCM.setAdapter(carMeetAdapter);
         }
-
-        myCMList = new ArrayList<>(); // Initialize myCMList
-        for (int i = 0; i < DataManager.getCarMeets().size(); i++) {
-            if (DataManager.getCarMeets().get(i).getCreator().equals(getUsername()))
-                myCMList.add(DataManager.getCarMeets().get(i));
-        }
-
-        carMeetAdapter = new CarMeetAdapter(this, 0, 0, myCMList);
-        lvMyCM.setAdapter(carMeetAdapter);
 
         lvMyCM.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                lastSelected = myCMList.get(position);
+                lastSelected = currentUser.getMyCarMeets().get(position);
                 Intent intent = new Intent(MyCarMeetsActivity.this, EditMeetingActivity.class);
                 intent.putExtra("DATE", lastSelected.getDate());
                 intent.putExtra("TIME", lastSelected.getTime());
@@ -77,18 +74,16 @@ public class MyCarMeetsActivity extends AppCompatActivity {
                 Location updatedLocation = new Location(latitude, longitude);
 
                 // Find the index of the lastSelected in the myCMList
-                int index = myCMList.indexOf(lastSelected);
+                int index = currentUser.getMyCarMeets().indexOf(lastSelected);
 
                 if (index != -1) {
                     // Update the lastSelected object directly from myCMList
-                    lastSelected = myCMList.get(index);
+                    lastSelected = currentUser.getMyCarMeets().get(index);
                     lastSelected.setDate(date);
                     lastSelected.setTime(time);
                     lastSelected.setLocation(updatedLocation);
                     lastSelected.setTags(tags);
 
-                    // Update the CarMeet object in the database
-                    DataManager.updateCarMeet(lastSelected);
 
                     // Notify the adapter of the data change
                     carMeetAdapter.notifyDataSetChanged();

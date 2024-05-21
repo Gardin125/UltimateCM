@@ -11,14 +11,14 @@ public class Person {
     private ArrayList<CarMeet> myCarMeets;
     private ArrayList<CarMeet> othersCarMeets;
 
-    public Person(String firstName, String lastName, String email, String username, String password, ArrayList<CarMeet> myCarMeets, ArrayList<CarMeet> othersCarMeets) {
+    public Person(String firstName, String lastName, String email, String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
         this.password = password;
-        this.myCarMeets = myCarMeets;
-        this.othersCarMeets = othersCarMeets;
+        this.myCarMeets = new ArrayList<CarMeet>();
+        this.othersCarMeets = new ArrayList<CarMeet>();
     }
 
     public Person() {

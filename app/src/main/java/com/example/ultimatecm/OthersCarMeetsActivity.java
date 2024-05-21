@@ -23,6 +23,8 @@ public class OthersCarMeetsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_others_car_meets);
+        DataManager.pullPeople();
+
         ivExit = findViewById(R.id.ivSecurity);
         lvOthersCM = findViewById(R.id.lvOthersCM);
         currentUser = new Person();
@@ -55,23 +57,9 @@ public class OthersCarMeetsActivity extends AppCompatActivity {
             currentUser.setOthersCarMeets(new ArrayList<>());
         }
 
-        // Debugging: Log the size of the othersCarMeets list
-        Log.d("OthersCarMeetsActivity", "OthersCarMeets size: " + currentUser.getOthersCarMeets().size());
-
-        // Create a list to store car meets that the user did not create but joined
-        ArrayList<CarMeet> othersCMList = new ArrayList<>();
-        for (CarMeet carMeet : DataManager.getCarMeets()) {
-            // Check if the car meet is not created by the current user but is joined by the user
-            if (!carMeet.getCreator().equals(username)) {
-                othersCMList.add(carMeet);
-            }
-        }
-
-        // Debugging: Log the size of the othersCMList
-        Log.d("OthersCarMeetsActivity", "Filtered OthersCMList size: " + othersCMList.size());
 
         // Initialize the adapter with the list of car meets
-        carMeetAdapter = new CarMeetAdapter(this, 0, 0, othersCMList);
+        carMeetAdapter = new CarMeetAdapter(this, 0, 0, currentUser.getOthersCarMeets());
         lvOthersCM.setAdapter(carMeetAdapter);
 
         // Set an item click listener for the list view
@@ -79,7 +67,7 @@ public class OthersCarMeetsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Get the selected car meet
-                CarMeet selectedCarMeet = othersCMList.get(position);
+                CarMeet selectedCarMeet = currentUser.getOthersCarMeets().get(position);
 
                 // Create an intent to start CarMeetDetailsActivity
                 Intent intent = new Intent(getApplicationContext(), CarMeetDetailsActivity.class);

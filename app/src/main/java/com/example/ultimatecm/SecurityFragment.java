@@ -15,6 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class SecurityFragment extends Fragment {
 
     Button btnChangePassword;
@@ -55,8 +58,7 @@ public class SecurityFragment extends Fragment {
                         if (currentUser.checkPassword(currentPassword) && newPassword.equals(confirmPassword)) {
                             // Passwords match and current password is correct
                             // Update the password and show success message
-                            currentUser.setPassword(newPassword);
-                            // Optionally, you can save the updated password to the database here
+                            updatePasswordInAuth(currentPassword, newPassword, dialog);
                             dialog.dismiss(); // Dismiss the dialog
                             // Show success message
                             Toast.makeText(requireContext(), "Password changed successfully", Toast.LENGTH_SHORT).show();
@@ -98,5 +100,32 @@ public class SecurityFragment extends Fragment {
             }
         }
         return null; // If the logged-in user is not found
+    }
+    private void updatePasswordInAuth(String currentPassword, String newPassword, Dialog dialog) {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+
+        if (user != null) {
+            // Reauthenticate the user
+            auth.signInWithEmailAndPassword(user.getEmail(), currentPassword)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            // Reauthentication successful, update the password
+                            user.updatePassword(newPassword).addOnCompleteListener(task1 -> {
+                                if (task1.isSuccessful()) {
+                                    // Password updated in Firebase Authentication
+                                    currentUser.setPassword(newPassword);
+                                    DataManager.updatePeopleList();
+                                } else {
+                                    // Failed to update password in Firebase Authentication
+                                    Toast.makeText(requireContext(), "Failed to update password in Firebase Authentication.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else {
+                            // Reauthentication failed
+                            Toast.makeText(requireContext(), "Reauthentication failed. Incorrect current password.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
     }
 }

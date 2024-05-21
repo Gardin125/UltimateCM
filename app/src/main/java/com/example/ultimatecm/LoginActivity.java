@@ -18,7 +18,7 @@ import com.google.firebase.auth.AuthResult;
 public class LoginActivity extends AppCompatActivity {
     EditText etEmail, etPassword;
     Button btnSignUp, btnLogin;
-    boolean emailExists;
+    boolean emailExists, validAccount ,samePassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = etEmail.getText().toString();
+                String email= etEmail.getText().toString();
                 String password = etPassword.getText().toString();
 
                 // Check if email and password are not empty
@@ -52,6 +52,14 @@ public class LoginActivity extends AppCompatActivity {
                         break;
                     }
                 }
+                samePassword =  false;
+                for (Person p : DataManager.getPeople()) {
+                    if (p.getPassword().equals(password)) {
+                        samePassword = true;
+                        break;
+                    }
+                }
+
 
                 // Attempt to sign in with email and password
                 DBManager.getAuth().signInWithEmailAndPassword(email, password)
@@ -65,6 +73,8 @@ public class LoginActivity extends AppCompatActivity {
                                     // If email does not exist in the database, prompt user to fix email or create new account
                                     if (!emailExists) {
                                         fixEmailOrCreateNewUserDialog("Please make sure that the email is correct or create a new account with this email");
+                                    } else if (!samePassword) {
+                                        showInvalidCredentialsDialog("The password is incorrect. Please try again.");
                                     }
                                 }
                             }
@@ -83,7 +93,6 @@ public class LoginActivity extends AppCompatActivity {
         startService(intent);
 
         DataManager.pullPeople();
-        DataManager.pullCarMeets();
     }
 
     private void showInvalidCredentialsDialog(String message) {
@@ -126,7 +135,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public void openHomePage() {
         Intent intent = new Intent(this, HomePageActivity.class);
-        intent.putExtra("EMAIL", etEmail.getText().toString());
         startActivity(intent);
     }
 

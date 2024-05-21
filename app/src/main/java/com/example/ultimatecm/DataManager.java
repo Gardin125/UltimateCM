@@ -14,21 +14,13 @@ import java.util.ArrayList;
 
 public class DataManager {
     private static ArrayList<Person> people;
-    private static ArrayList<CarMeet> carMeets;
 
     static final String dbMainList = "people";
-    private static final String dbCarMeetList = "carMeets";
 
     public static ArrayList<Person> getPeople() {
         if (people == null)
             people = new ArrayList<Person>();
         return people;
-    }
-
-    public static ArrayList<CarMeet> getCarMeets() {
-        if (carMeets == null)
-            carMeets = new ArrayList<CarMeet>();
-        return carMeets;
     }
 
     public static void pullPeople() {
@@ -47,21 +39,6 @@ public class DataManager {
         });
     }
 
-    public static void pullCarMeets() {
-        DBManager.getDb().getReference(dbCarMeetList).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                GenericTypeIndicator<ArrayList<CarMeet>> t = new GenericTypeIndicator<ArrayList<CarMeet>>() {
-                };
-                carMeets = snapshot.getValue(t);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // Handle onCancelled event
-            }
-        });
-    }
 
     public static void addNewPerson(Person person) {
         getPeople().add(person);
@@ -69,31 +46,12 @@ public class DataManager {
         DBManager.getDb().getReference(dbMainList).setValue(people);
     }
 
-    public static void addNewCarMeet(CarMeet carMeet) {
-        getCarMeets().add(carMeet);
-        // Save to db
-        DBManager.getDb().getReference(dbCarMeetList).setValue(carMeets);
-    }
-
     public static DatabaseReference getMainRoot() {
         return DBManager.getDb().getReference();
     }
-
-    public static void updateCarMeet(CarMeet carMeet) {
-        DBManager.getDb().getReference(dbCarMeetList).setValue(carMeets);
-    }
-
-    public static void updatePerson(Person person, OnSuccessListener<Void> user_data_updated_successfully, OnFailureListener failed_to_update_user_data) {
-        for (int i = 0; i < people.size(); i++) {
-            // Find the person in the list
-            if (people.get(i).getUsername().equals(person.getUsername())) {
-                // Update the person's data
-                people.set(i, person);
-                break;
-            }
-        }
-        // Save the updated list to the database
-        DBManager.getDb().getReference(dbMainList).setValue(people);
+    public static void updatePeopleList()
+    {
+        getMainRoot().child(dbMainList).setValue(people);
     }
 
     public static Person getCurrentLoggedInPersonByEmail(String email) {
@@ -106,7 +64,6 @@ public class DataManager {
         }
         return null;
     }
-
 
     public static Person getCurrentLoggedInPersonByUsername(String username) {
         if (people != null) {

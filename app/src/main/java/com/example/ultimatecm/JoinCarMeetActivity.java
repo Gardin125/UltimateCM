@@ -21,9 +21,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import java.util.ArrayList;
 
 public class JoinCarMeetActivity extends AppCompatActivity {
+    // Declare UI elements and data lists
     ImageView ivExit;
-
-    ArrayList<CarMeet> carMeetArrayList, othersCarMeetArrayList;
+    ArrayList<CarMeet> carMeetArrayList;
     ListView lv;
     CarMeetAdapter cmAdapter;
     Person currentUser;
@@ -31,7 +31,10 @@ public class JoinCarMeetActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_join_meeting);
+        DataManager.pullPeople();
+        setContentView(R.layout.activity_join_meeting); // Set the layout for this activity
+
+        // Initialize UI elements
         ivExit = findViewById(R.id.ivExit);
         lv = findViewById(R.id.lvCarMeeting);
 
@@ -51,98 +54,61 @@ public class JoinCarMeetActivity extends AppCompatActivity {
             currentUser.setOthersCarMeets(new ArrayList<>());
         }
 
-        ivExit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        // Set click listener for the exit button
+        ivExit.setOnClickListener(v -> finish());
 
+        // Initialize the carMeetArrayList
         carMeetArrayList = new ArrayList<>();
-        for (CarMeet carMeet : DataManager.getCarMeets()) {
-            // Exclude the car meets created by the current user
-            if (!carMeet.getCreator().equals(currentUserUsername)) {
-                // Exclude the car meets already joined by the current user
-                boolean alreadyJoined = false;
-                if (currentUser != null && currentUser.getOthersCarMeets() != null) {
-                    for (CarMeet joinedCarMeet : currentUser.getOthersCarMeets()) {
-                        if (carMeet.equals(joinedCarMeet)) {
-                            alreadyJoined = true;
-                            break;
-                        }
-                    }
-                }
-                if (!alreadyJoined) {
+
+        // Add car meets from other users to the list
+        for (Person person : DataManager.getPeople()) {
+            if (!person.getUsername().equals(currentUserUsername)) {
+                for (CarMeet carMeet : person.getMyCarMeets()) {
                     carMeetArrayList.add(carMeet);
                 }
             }
         }
 
+        // Set up the adapter for the ListView
         cmAdapter = new CarMeetAdapter(this, 0, 0, carMeetArrayList);
         lv.setAdapter(cmAdapter);
 
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(JoinCarMeetActivity.this);
-                builder.setMessage("Do you want to join this Car Meet?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Check if currentUser is found
-                                if (currentUser != null) {
-                                    // Get the selected car meet from the carMeetArrayList
-                                    CarMeet selectedCarMeet = carMeetArrayList.get(position);
+        // Set item click listener for the ListView
+        lv.setOnItemClickListener((parent, view, position, id) -> {
+            // Show a dialog to confirm joining the selected car meet
+            AlertDialog.Builder builder = new AlertDialog.Builder(JoinCarMeetActivity.this);
+            builder.setMessage("Do you want to join this Car Meet?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        if (currentUser != null) {
+                            // Get the selected car meet
+                            CarMeet selectedCarMeet = carMeetArrayList.get(position);
 
-                                    // Add the selected car meet to the currentUser's othersCarMeets list
-                                    if (currentUser.getOthersCarMeets() != null) {
-                                        currentUser.getOthersCarMeets().add(selectedCarMeet);
-                                    }
+                            // Add the selected car meet to the current user's list
+                            currentUser.getOthersCarMeets().add(selectedCarMeet);
 
-                                    // Remove the selected car meet from the carMeetArrayList
-                                    carMeetArrayList.remove(selectedCarMeet);
+                            // Remove the selected car meet from the displayed list
+                            carMeetArrayList.remove(selectedCarMeet);
 
-                                    // Notify the adapter that the data set has changed
-                                    cmAdapter.notifyDataSetChanged();
+                            // Notify the adapter of data changes
+                            cmAdapter.notifyDataSetChanged();
 
-                                    // Update the user data in the database asynchronously
-                                    updateUserDataInDatabase(currentUser);
-                                } else {
-                                    // Handle case where currentUser is not found
-                                    Toast.makeText(JoinCarMeetActivity.this, "Current user not found", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Add your code to handle "No" option here
-                            }
-                        });
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
+                        } else {
+                            // Show an error if the current user is not found
+                            Toast.makeText(JoinCarMeetActivity.this, "Current user not found", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .setNegativeButton("No", (dialog, which) -> {
+                        // Handle "No" option (no action needed)
+                    });
+            AlertDialog dialog = builder.create();
+            dialog.show();
         });
     }
 
-    // Method to update user data in the database asynchronously
-    private void updateUserDataInDatabase(Person user) {
-        DataManager.updatePerson(user, new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                // Database update successful
-                Toast.makeText(JoinCarMeetActivity.this, "User data updated successfully", Toast.LENGTH_SHORT).show();
-            }
-        }, new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                // Database update failed
-                Toast.makeText(JoinCarMeetActivity.this, "Failed to update user data", Toast.LENGTH_SHORT).show();
-                e.printStackTrace();
-            }
-        });
-    }
+    // Method to update user data in the database
 
+
+    // Method to get the current user's username
     public String getUsername() {
         String username = "";
         for (int i = 0; i < DataManager.getPeople().size(); i++) {
@@ -152,3 +118,4 @@ public class JoinCarMeetActivity extends AppCompatActivity {
         return username;
     }
 }
+

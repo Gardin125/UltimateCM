@@ -1,5 +1,6 @@
 package com.example.ultimatecm;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -17,6 +18,8 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -118,13 +121,19 @@ public class CreateCarMeetActivity extends AppCompatActivity {
     }
 
     private void createCarMeet() {
-        carMeet = new CarMeet(btnSelectDate.getText().toString(), btnSelectTime.getText().toString(),
-                selectedTagsList, location, getUsername());
-        DataManager.addNewCarMeet(carMeet);
+        carMeet = new CarMeet(btnSelectDate.getText().toString(), btnSelectTime.getText().toString(), selectedTagsList, location, getUsername());
+
+        // Get the current user
         Person currentUser = DataManager.getCurrentLoggedInPersonByUsername(getUsername());
-        if (currentUser != null) {
-            currentUser.getMyCarMeets().add(carMeet);
+
+        // Ensure the list of carMeets is initialized
+        if (currentUser.getMyCarMeets() == null) {
+            currentUser.setMyCarMeets(new ArrayList<CarMeet>());
         }
+
+        // Add the new carMeet to the user's list
+        currentUser.getMyCarMeets().add(carMeet);
+
     }
 
     private void pickPointOnMap() {
@@ -182,22 +191,22 @@ public class CreateCarMeetActivity extends AppCompatActivity {
         selectedTagsList.clear(); // Clear the ArrayList
 
         if (tagCheckedState[0]) {
-            selectedTagsList.add("#Americans");
+            selectedTagsList.add("#American Cars");
         }
         if (tagCheckedState[1]) {
             selectedTagsList.add("#Old Cars");
         }
         if (tagCheckedState[2]) {
-            selectedTagsList.add("#Everyone Welcomed");
+            selectedTagsList.add("#All Cars");
         }
         if (tagCheckedState[3]) {
             selectedTagsList.add("#New Cars");
         }
         if (tagCheckedState[4]) {
-            selectedTagsList.add("#Public");
+            selectedTagsList.add("#Italian Cars");
         }
         if (tagCheckedState[5]) {
-            selectedTagsList.add("#Private");
+            selectedTagsList.add("#German Cars");
         }
     }
 
