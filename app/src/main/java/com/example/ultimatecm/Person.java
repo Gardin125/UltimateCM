@@ -7,16 +7,14 @@ public class Person {
     protected String lastName;
     private String email;
     protected String username;
-    private String password;
     private ArrayList<CarMeet> myCarMeets;
     private ArrayList<CarMeet> othersCarMeets;
 
-    public Person(String firstName, String lastName, String email, String username, String password) {
+    public Person(String firstName, String lastName, String email, String username) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
-        this.password = password;
         this.myCarMeets = new ArrayList<CarMeet>();
         this.othersCarMeets = new ArrayList<CarMeet>();
     }
@@ -56,14 +54,6 @@ public class Person {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public ArrayList<CarMeet> getMyCarMeets() {
         if (myCarMeets == null) {
             myCarMeets = new ArrayList<>();
@@ -86,8 +76,4 @@ public class Person {
         this.othersCarMeets = othersCarMeets;
     }
 
-    public boolean checkPassword(String passwordToCheck) {
-        // Compare the given password with the stored password
-        return passwordToCheck.equals(password);
-    }
 }

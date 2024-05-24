@@ -90,7 +90,7 @@ public class SignupActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    Person person = new Person(firstName, lastName, email, username, password);
+                                    Person person = new Person(firstName, lastName, email, username);
                                     DataManager.addNewPerson(person);
                                     Log.d("User Auth", "User signed successfully");
                                     Toast.makeText(SignupActivity.this, "Successful sign up", Toast.LENGTH_SHORT).show();

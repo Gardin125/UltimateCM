@@ -52,13 +52,6 @@ public class LoginActivity extends AppCompatActivity {
                         break;
                     }
                 }
-                samePassword =  false;
-                for (Person p : DataManager.getPeople()) {
-                    if (p.getPassword().equals(password)) {
-                        samePassword = true;
-                        break;
-                    }
-                }
 
 
                 // Attempt to sign in with email and password
@@ -73,8 +66,6 @@ public class LoginActivity extends AppCompatActivity {
                                     // If email does not exist in the database, prompt user to fix email or create new account
                                     if (!emailExists) {
                                         fixEmailOrCreateNewUserDialog("Please make sure that the email is correct or create a new account with this email");
-                                    } else if (!samePassword) {
-                                        showInvalidCredentialsDialog("The password is incorrect. Please try again.");
                                     }
                                 }
                             }

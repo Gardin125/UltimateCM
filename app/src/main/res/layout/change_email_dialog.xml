@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#949398"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/editTextNewEmail"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:inputType="textPassword"
+        android:hint="Enter new email"
+        android:backgroundTint="#d9a737"
+        android:textColorHint="#d9a737"/>
+
+
+
+    <Button
+        android:id="@+id/btnSubmitEmailChange"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:textAllCaps="false"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#d9a737"
+        android:textColor="#949398"/>
+</LinearLayout>

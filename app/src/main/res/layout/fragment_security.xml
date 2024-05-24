@@ -22,12 +22,27 @@
         android:layout_marginBottom="16dp"/>
 
     <Button
-        android:id="@+id/btnChangePassword"
+        android:id="@+id/btnPasswordReset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Change Password"
+        android:text="Reset Password"
         android:layout_marginTop="100dp"
         android:backgroundTint="#d9a737"
+        android:textColor="#949398"
+        android:textAllCaps="false"
+        android:textSize="20dp"
+
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btnChangeEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Email Address Change"
+        android:layout_marginTop="150dp"
+        android:backgroundTint="#d9a737"
+        android:textAllCaps="false"
+        android:textSize="20dp"
         android:textColor="#949398"
         android:layout_marginBottom="16dp"/>
 
