@@ -24,7 +24,7 @@
             android:id="@+id/btnTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="35dp"
+            android:layout_marginLeft="30dp"
             android:background="@drawable/custom_yellow_button"
             android:text="Select Time"
             android:textAllCaps="false"
@@ -40,24 +40,16 @@
 
         <Button
             android:id="@+id/btnChangeLocation"
-            android:layout_width="wrap_content"
+            android:layout_width="210dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="35dp"
+
             android:background="@drawable/custom_yellow_button"
             android:text="Location"
             android:textAllCaps="false"
             android:textColor="#d9a737"
             android:textSize="20dp" />
 
-        <Button
-            android:id="@+id/btnChangeTags"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/custom_button"
-            android:text="Tags"
-            android:textAllCaps="false"
-            android:textColor="#949398"
-            android:textSize="20dp" />
+
 
     </LinearLayout>
 

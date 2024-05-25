@@ -1,13 +1,16 @@
 package com.example.ultimatecm;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -17,14 +20,14 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class EditMeetingActivity extends AppCompatActivity {
-    Button btnChangeLocation, btnChangeTags, btnCancel, btnSave, btnDate, btnTime;
+    Button btnChangeLocation, btnCancel, btnSave, btnDate, btnTime;
     int verify = 0;
     Location location;
     TextView tvError;
-    boolean privacy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,17 +37,14 @@ public class EditMeetingActivity extends AppCompatActivity {
         btnDate = findViewById(R.id.btnDate);
         btnTime = findViewById(R.id.btnTime);
         btnChangeLocation = findViewById(R.id.btnChangeLocation);
-        btnChangeTags = findViewById(R.id.btnChangeTags);
         btnCancel = findViewById(R.id.btnCancel);
         btnSave = findViewById(R.id.btnSave);
         tvError = findViewById(R.id.tvError);
-        Intent intent = getIntent();
-        privacy = intent.getBooleanExtra("PRIVACY", false);
 
-        String prevDate = intent.getStringExtra("DATE"), prevTime  = intent.getStringExtra("TIME");
-        location = new Location(intent.getFloatExtra("LATITUDE",0), intent.getFloatExtra("LONGITUDE",0));
-        if (intent.getExtras() != null)
-        {
+        Intent intent = getIntent();
+        String prevDate = intent.getStringExtra("DATE"), prevTime = intent.getStringExtra("TIME");
+        location = new Location(intent.getFloatExtra("LATITUDE", 0), intent.getFloatExtra("LONGITUDE", 0));
+        if (intent.getExtras() != null) {
             btnDate.setText(intent.getStringExtra("DATE"));
             btnTime.setText(intent.getStringExtra("TIME"));
             btnDate.setOnClickListener(new View.OnClickListener() {
@@ -73,8 +73,7 @@ public class EditMeetingActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (btnDate.getText().toString() != prevDate || btnTime.getText().toString() != prevTime || verify != 0)
-                {
+                if (btnDate.getText().toString() != prevDate || btnTime.getText().toString() != prevTime || verify != 0) {
                     Intent intent = new Intent();
                     intent.putExtra("DATE", btnDate.getText().toString());
                     intent.putExtra("TIME", btnTime.getText().toString());
@@ -82,8 +81,7 @@ public class EditMeetingActivity extends AppCompatActivity {
                     intent.putExtra("LONGITUDE", location.getLongitude());
                     setResult(RESULT_OK, intent);
                     finish();
-                }
-                else {
+                } else {
                     tvError.setText("Please change at least 1 thing.");
                 }
             }
@@ -104,6 +102,7 @@ public class EditMeetingActivity extends AppCompatActivity {
 
     private void pickPointOnMap() {
         Intent pickPointIntent = new Intent(this, MapsActivity.class);
+        pickPointIntent.putExtra("fromEditMeeting", true);
         startActivityForResult(pickPointIntent, PICK_MAP_POINT_REQUEST);
     }
 

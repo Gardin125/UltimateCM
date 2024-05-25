@@ -62,7 +62,7 @@
             android:layout_centerInParent="true"
             android:textAlignment="center"
             android:text="Select if you want to join a car meet
-            or create one"
+            or create one, also can see your car meets or see the car meets you joined"
             android:textColor="#d9a737"
             android:textSize="24sp"
             android:layout_gravity="center"/>
@@ -124,7 +124,7 @@
                 android:layout_width="125dp"
                 android:layout_height="55dp"
                 android:layout_marginBottom="5dp"
-                android:text="Others CM"
+                android:text="Joined CM"
                 android:background="@drawable/custom_button"
                 android:textAllCaps="false"
                 android:textColor="#949398"

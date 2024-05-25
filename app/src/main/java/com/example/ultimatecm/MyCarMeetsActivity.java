@@ -70,7 +70,6 @@ public class MyCarMeetsActivity extends AppCompatActivity {
                 String time = data.getStringExtra("TIME");
                 float longitude = data.getFloatExtra("LONGITUDE", 0);
                 float latitude = data.getFloatExtra("LATITUDE", 0);
-                ArrayList<String> tags = data.getStringArrayListExtra("TAGS");
                 Location updatedLocation = new Location(latitude, longitude);
 
                 // Find the index of the lastSelected in the myCMList
@@ -82,8 +81,9 @@ public class MyCarMeetsActivity extends AppCompatActivity {
                     lastSelected.setDate(date);
                     lastSelected.setTime(time);
                     lastSelected.setLocation(updatedLocation);
-                    lastSelected.setTags(tags);
 
+                    // Update the database
+                    DataManager.updatePeopleList();
 
                     // Notify the adapter of the data change
                     carMeetAdapter.notifyDataSetChanged();

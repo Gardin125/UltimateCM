@@ -35,7 +35,7 @@ public class HomePageActivity extends AppCompatActivity{
                 replaceFragment(new PersonalInfoFragment());
                 return true;
             } else if (item.getItemId() == R.id.logout) {
-                finish();
+                logout();
                 return true;
             }
             return false;
@@ -47,6 +47,12 @@ public class HomePageActivity extends AppCompatActivity{
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout,fragment);
         fragmentTransaction.commit();
+    }
+    private void logout() {
+        // Navigate back to LoginActivity
+        Intent intent = new Intent(HomePageActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
     public String getUsername() {
         String username = "";

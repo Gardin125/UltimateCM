@@ -53,8 +53,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         Intent intent = getIntent();
         boolean fromCreateCarMeet = intent.getBooleanExtra("fromCreateCarMeet", false);
+        boolean fromEditMeeting = intent.getBooleanExtra("fromEditMeeting", false);
 
-        if (fromCreateCarMeet) {
+        if (fromCreateCarMeet || fromEditMeeting) {
             // Allow the user to pick a new point
             mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                 @Override

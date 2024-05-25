@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,11 +69,19 @@ public class PersonalInfoFragment extends Fragment {
                 boolean validFN, validLN, validUN;
                 validFN = firstName.length() >= 3 && !containsNumber(firstName);
                 validLN = lastName.length() >= 3 && !containsNumber(lastName);
-                validUN = username.length() >= 3 && !containsSpecialCharacter(username);
+                validUN = username.length() >= 4 && !containsSpecialCharacter(username);
+
+                boolean usernameAlrExist = false;
+                for (Person p : DataManager.getPeople()) {
+                    if (p.getUsername().equalsIgnoreCase(username)) {
+                        usernameAlrExist = true;
+                        break;
+                    }
+                }
+
                 boolean validAll = validFN && validLN && validUN;
 
-                if (validAll)
-                {
+                if (validAll) {
                     Person currentUser = getLoggedInPerson();
                     currentUser.setFirstName(firstName);
                     currentUser.setLastName(lastName);
@@ -88,11 +97,44 @@ public class PersonalInfoFragment extends Fragment {
                         }
                     });
                     builder.create().show();
+
+                } else if (usernameAlrExist) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("Failed to update.");
+                    builder.setMessage("Personal Info failed to update. Username is already exists in the system. Please change it.");
+                    builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.create().show();
+                } else if (!validFN) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("Failed to update.");
+                    builder.setMessage("Personal Info failed to update. First name might contain numbers or too short.");
+                    builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.create().show();
+                } else if (!validLN) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("Failed to update.");
+                    builder.setMessage("Personal Info failed to update. Last name might contain numbers or too short.");
+                    builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.create().show();
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                     builder.setTitle("Failed to update.");
-                    builder.setMessage("Personal Info failed to update. Please make sure that the first name & last name not contains a number and " +
-                            "the username doesn't contains a special character");
+                    builder.setMessage("Personal Info failed to update. Username might contain special characters or too short.");
                     builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

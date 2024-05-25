@@ -4,21 +4,19 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
-import android.content.DialogInterface;
-import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.ultimatecm.databinding.EditMeetingActivityBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class JoinCarMeetActivity extends AppCompatActivity {
     // Declare UI elements and data lists
@@ -27,6 +25,7 @@ public class JoinCarMeetActivity extends AppCompatActivity {
     ListView lv;
     CarMeetAdapter cmAdapter;
     Person currentUser;
+    Geocoder geocoder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,17 +36,9 @@ public class JoinCarMeetActivity extends AppCompatActivity {
         // Initialize UI elements
         ivExit = findViewById(R.id.ivExit);
         lv = findViewById(R.id.lvCarMeeting);
+        geocoder = new Geocoder(this);
 
-        // Get the current user's username
-        String currentUserUsername = getUsername();
-
-        // Find the current user in the data manager
-        for (Person person : DataManager.getPeople()) {
-            if (person.getUsername().equals(currentUserUsername)) {
-                currentUser = person;
-                break;
-            }
-        }
+        currentUser = DataManager.getCurrentLoggedInPersonByUsername(getUsername());
 
         // Initialize the othersCarMeetArrayList if it's null
         if (currentUser != null && currentUser.getOthersCarMeets() == null) {
@@ -60,11 +51,13 @@ public class JoinCarMeetActivity extends AppCompatActivity {
         // Initialize the carMeetArrayList
         carMeetArrayList = new ArrayList<>();
 
-        // Add car meets from other users to the list
+        // Add car meets from other users to the list, excluding ones the current user is already in
         for (Person person : DataManager.getPeople()) {
-            if (!person.getUsername().equals(currentUserUsername)) {
+            if (!person.getUsername().equals(currentUser.getUsername())) {
                 for (CarMeet carMeet : person.getMyCarMeets()) {
-                    carMeetArrayList.add(carMeet);
+                    if (!currentUser.getOthersCarMeets().contains(carMeet)) {
+                        carMeetArrayList.add(carMeet);
+                    }
                 }
             }
         }
@@ -75,22 +68,42 @@ public class JoinCarMeetActivity extends AppCompatActivity {
 
         // Set item click listener for the ListView
         lv.setOnItemClickListener((parent, view, position, id) -> {
+            // Get the selected car meet
+            CarMeet selectedCarMeet = carMeetArrayList.get(position);
+
+            // Create the message with car meet details
+            String message = "Do you want to join this Car Meet?\n\n" +
+                    "The details for this Car Meet are:\n" +
+                    "Date: " + selectedCarMeet.getDate() + "\n" +
+                    "Time: " + selectedCarMeet.getTime() + "\n";
+
+            // Perform reverse geocoding to get the city name from latitude and longitude
+            try {
+                List<Address> addresses = geocoder.getFromLocation(selectedCarMeet.getLocation().getLatitude(), selectedCarMeet.getLocation().getLongitude(), 1);
+                if (!addresses.isEmpty()) {
+                    String city = addresses.get(0).getLocality();
+                    message += "Location: " + city;
+                } else {
+                    message += "Location: Not available";
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                message += "Location: Not available";
+            }
+
             // Show a dialog to confirm joining the selected car meet
             AlertDialog.Builder builder = new AlertDialog.Builder(JoinCarMeetActivity.this);
-            builder.setMessage("Do you want to join this Car Meet?")
+            builder.setMessage(message)
                     .setPositiveButton("Yes", (dialog, which) -> {
                         if (currentUser != null) {
-                            // Get the selected car meet
-                            CarMeet selectedCarMeet = carMeetArrayList.get(position);
+                            if (currentUser.getOthersCarMeets() == null)
+                                currentUser.setOthersCarMeets(new ArrayList<CarMeet>());
 
                             // Add the selected car meet to the current user's list
                             currentUser.getOthersCarMeets().add(selectedCarMeet);
 
-                            // Remove the selected car meet from the displayed list
-                            carMeetArrayList.remove(selectedCarMeet);
-
-                            // Notify the adapter of data changes
-                            cmAdapter.notifyDataSetChanged();
+                            // Update current user in database
+                            DataManager.updatePeopleList();
 
                         } else {
                             // Show an error if the current user is not found
@@ -105,9 +118,6 @@ public class JoinCarMeetActivity extends AppCompatActivity {
         });
     }
 
-    // Method to update user data in the database
-
-
     // Method to get the current user's username
     public String getUsername() {
         String username = "";
@@ -118,4 +128,5 @@ public class JoinCarMeetActivity extends AppCompatActivity {
         return username;
     }
 }
+
 

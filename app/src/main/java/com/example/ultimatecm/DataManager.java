@@ -49,10 +49,10 @@ public class DataManager {
     public static DatabaseReference getMainRoot() {
         return DBManager.getDb().getReference();
     }
-    public static void updatePeopleList()
-    {
+    public static void updatePeopleList() {
         getMainRoot().child(dbMainList).setValue(people);
     }
+
 
     public static Person getCurrentLoggedInPersonByEmail(String email) {
         if (people != null) {

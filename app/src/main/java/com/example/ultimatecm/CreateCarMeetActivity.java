@@ -47,6 +47,7 @@ public class CreateCarMeetActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (validateInputs()) {
                     createCarMeet();
+                    DataManager.updatePeopleList();
                     finish();
                 }
             }
