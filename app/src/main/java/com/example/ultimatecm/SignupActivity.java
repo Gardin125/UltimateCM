@@ -8,6 +8,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -27,18 +29,13 @@ public class SignupActivity extends AppCompatActivity {
     ImageView ivExit;
     EditText etEmail, etFirstName, etLastName, etUsername, etPassword;
     Button btnFinish;
+    TextView tvError;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        ivExit = findViewById(R.id.ivExit);
-        etUsername = findViewById(R.id.etUsername);
-        etPassword = findViewById(R.id.etPassword);
-        etFirstName = findViewById(R.id.etFirstName);
-        etLastName = findViewById(R.id.etLastName);
-        etEmail = findViewById(R.id.etEmail);
-        btnFinish = (Button) findViewById(R.id.btnFinish);
+        initializeViews();
 
         Intent intent = getIntent();
         boolean check = intent.getBooleanExtra("CHECK",false);
@@ -52,6 +49,31 @@ public class SignupActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        etPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // No implementation needed
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // No implementation needed
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String password = s.toString();
+                if (password.length() < 7) {
+                    tvError.setTextColor(getResources().getColor(R.color.red));
+                    tvError.setText("X the password must contain at least 7 characters");
+                } else {
+                    tvError.setTextColor(getResources().getColor(R.color.green));
+                    tvError.setText("√ the password contains at least 7 characters");
+                }
+            }
+        });
+
 
         btnFinish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,5 +156,16 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
         builder.create().show();
+    }
+
+    private void initializeViews() {
+        ivExit = findViewById(R.id.ivExit);
+        etUsername = findViewById(R.id.etUsername);
+        etPassword = findViewById(R.id.etPassword);
+        etFirstName = findViewById(R.id.etFirstName);
+        etLastName = findViewById(R.id.etLastName);
+        etEmail = findViewById(R.id.etEmail);
+        btnFinish = (Button) findViewById(R.id.btnFinish);
+        tvError = findViewById(R.id.tvError);
     }
 }

@@ -2,6 +2,7 @@ package com.example.ultimatecm;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class CarMeet implements Serializable {
     private String date; // Format: dd/mm/yyyy
@@ -9,6 +10,7 @@ public class CarMeet implements Serializable {
     private ArrayList<String> tags; // #Americans, #OldCars
     private Location location;
     private String creator;
+    private int participants;
 
     public CarMeet(String date, String time, ArrayList<String> tags,  Location location, String creator) {
         this.date = date;
@@ -16,6 +18,7 @@ public class CarMeet implements Serializable {
         this.tags = tags;
         this.location = location;
         this.creator = creator;
+        this.participants = 0;
     }
 
     public CarMeet() {
@@ -61,16 +64,31 @@ public class CarMeet implements Serializable {
         this.creator = creator;
     }
 
-    // Method to compare two CarMeet objects
-    public boolean isEqual(CarMeet other) {
-        // Check if all attributes are the same
-        boolean dateEqual = this.date.equals(other.date);
-        boolean timeEqual = this.time.equals(other.time);
-        boolean tagsEqual = this.tags.equals(other.tags);
-        boolean locationEqual = this.location.equals(other.location);
-        boolean creatorEqual = this.creator.equals(other.creator);
+    public int getParticipants() {
+        return participants;
+    }
 
-        // Return true if all attributes are equal, false otherwise
-        return dateEqual && timeEqual && tagsEqual && locationEqual && creatorEqual;
+    public void setParticipants(int participants) {
+        this.participants = participants;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        CarMeet other = (CarMeet) obj;
+        return Objects.equals(date, other.date) &&
+                Objects.equals(time, other.time) &&
+                Objects.equals(tags, other.tags) &&
+                Objects.equals(location, other.location) &&
+                Objects.equals(creator, other.creator);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(date, time, tags, location, creator);
     }
 }

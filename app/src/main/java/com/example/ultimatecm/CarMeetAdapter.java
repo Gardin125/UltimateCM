@@ -36,12 +36,14 @@ public class CarMeetAdapter extends ArrayAdapter<CarMeet> {
 
         TextView tvTime = view.findViewById(R.id.tvTime); // Attach text and time to the view
         TextView tvDate = view.findViewById(R.id.tvDate); // Attach text and date to the view
+        TextView tvParticipants = view.findViewById(R.id.tvParticipants);
         TextView tvCity = view.findViewById(R.id.tvCity); // Display the city name
 
         CarMeet temp = objects.get(pos);
 
         tvTime.setText(temp.getTime()); // Set the time into the appropriate text view
         tvDate.setText(temp.getDate()); // Set the date into the appropriate text view
+        tvParticipants.setText(Integer.toString(temp.getParticipants()));
 
         // Get the city name asynchronously
         new ReverseGeocodingTask(tvCity).execute(temp.getLocation().getLatitude(), temp.getLocation().getLongitude());

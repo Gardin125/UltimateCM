@@ -3,4 +3,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="icon_tint_color">#d9a737</color>
+    <color name="red">#FF0000</color>
+    <color name="green">#379937</color>
 </resources>

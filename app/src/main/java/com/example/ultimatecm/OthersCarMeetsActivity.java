@@ -29,23 +29,9 @@ public class OthersCarMeetsActivity extends AppCompatActivity {
         lvOthersCM = findViewById(R.id.lvOthersCM);
         currentUser = new Person();
 
-        ivExit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish(); // Exit the activity when the exit button is clicked
-            }
-        });
+        ivExit.setOnClickListener(v -> finish());
 
-        // Get the username of the current user
-        String username = getUsername();
-
-        // Find the current user in the data manager
-        for (Person person : DataManager.getPeople()) {
-            if (person.getUsername().equals(username)) {
-                currentUser = person;
-                break;
-            }
-        }
+       currentUser = DataManager.getCurrentLoggedInPersonByUsername(getUsername());
 
         if (currentUser == null) {
             Log.e("OthersCarMeetsActivity", "Current user not found");

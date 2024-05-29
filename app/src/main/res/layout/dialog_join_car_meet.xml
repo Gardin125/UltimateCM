@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#949398"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/etMassage"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Would you like to join this car meet?"
+        android:textColor="#d9a737" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+        <Button
+            android:id="@+id/btnYes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Yes"
+            android:textAllCaps="false"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#d9a737"
+            android:textColor="#949398"/>
+        <Button
+            android:id="@+id/btnNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No"
+            android:textAllCaps="false"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:backgroundTint="#d9a737"
+            android:textColor="#949398"/>
+
+    </LinearLayout>
+</LinearLayout>

@@ -86,6 +86,8 @@ public class SecurityFragment extends Fragment {
                 String newEmail = editTextNewEmail.getText().toString().trim();
                 if (newEmail.isEmpty()) {
                     showDialog("Field is empty. ", "Make sure your wrote new email. ", "Okay");
+                } else if (!emailIsAlreadyExists(newEmail)) {
+                    showDialog("Email is already exists", "Please use other mail.", "Okay");
                 } else {
                     currentUser.updateEmail(newEmail)
                             .addOnCompleteListener(task -> {
@@ -112,5 +114,14 @@ public class SecurityFragment extends Fragment {
             }
         });
         builder.create().show();
+    }
+
+    private boolean emailIsAlreadyExists(String email) {
+        for (Person p: DataManager.getPeople()) {
+            if (p.getEmail().equalsIgnoreCase(email)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

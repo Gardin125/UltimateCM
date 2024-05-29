@@ -39,64 +39,68 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:hint="First Name"
         android:backgroundTint="#d9a737"
-        android:textColorHint="#d9a737"/>
+        android:hint="First Name"
+        android:textColorHint="#d9a737" />
 
     <EditText
         android:id="@+id/etLastName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:hint="Last Name"
         android:backgroundTint="#d9a737"
-        android:textColorHint="#d9a737"/>
+        android:hint="Last Name"
+        android:textColorHint="#d9a737" />
 
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:hint="Email Address"
         android:backgroundTint="#d9a737"
-        android:textColorHint="#d9a737"/>
+        android:hint="Email Address"
+        android:textColorHint="#d9a737" />
 
     <EditText
         android:id="@+id/etUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:hint="Username"
         android:backgroundTint="#d9a737"
-        android:textColorHint="#d9a737"/>
+        android:hint="Username"
+        android:textColorHint="#d9a737" />
 
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:backgroundTint="#d9a737"
         android:hint="Password"
         android:inputType="textPassword"
-        android:backgroundTint="#d9a737"
-        android:textColorHint="#d9a737"/>
-    <Button
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:text="Finish"
-        android:onClick="signUpButtonClick"
-        android:id="@+id/btnFinish"
-        android:layout_gravity="center"
-        android:textSize="18sp"
-        android:textAllCaps="false"
-        android:textColor="#949398"
-        android:background="@drawable/custom_button"
-        />
+        android:textColorHint="#d9a737" />
 
     <TextView
+        android:id="@+id/tvError"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="50dp"
-        android:id="@+id/tvError"
+        android:layout_gravity="center|left"
+        android:layout_margin="10dp"
+        android:text="X the password must contain at least 7 characters"
+        android:textSize="20dp"
+        android:textColor="#FF0000" />
+
+    <Button
+        android:id="@+id/btnFinish"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_gravity="center"
-        android:textColor="#FF0000"/>
+        android:background="@drawable/custom_button"
+        android:onClick="signUpButtonClick"
+        android:text="Finish"
+        android:textAllCaps="false"
+        android:textColor="#949398"
+        android:textSize="18sp" />
+
+
 </LinearLayout>
