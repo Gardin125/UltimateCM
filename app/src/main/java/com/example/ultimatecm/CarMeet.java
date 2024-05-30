@@ -12,7 +12,7 @@ public class CarMeet implements Serializable {
     private String creator;
     private int participants;
 
-    public CarMeet(String date, String time, ArrayList<String> tags,  Location location, String creator) {
+    public CarMeet(String date, String time, ArrayList<String> tags, Location location, String creator) {
         this.date = date;
         this.time = time;
         this.tags = tags;
@@ -71,20 +71,8 @@ public class CarMeet implements Serializable {
     public void setParticipants(int participants) {
         this.participants = participants;
     }
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        CarMeet other = (CarMeet) obj;
-//        return Objects.equals(date, other.date) &&
-//                Objects.equals(time, other.time) &&
-//                Objects.equals(tags, other.tags) &&
-//                Objects.equals(location, other.location) &&
-//                Objects.equals(creator, other.creator);
+
+    public boolean checkEqualsCarMeet(CarMeet other) {
         return this.date.equals(other.date) &&
                 this.time.equals(other.time) &&
                 this.tags.equals(other.tags) &&
@@ -94,10 +82,5 @@ public class CarMeet implements Serializable {
 
     private boolean locationsEqual(Location a, Location b) {
         return a.getLatitude() == b.getLatitude() && a.getLongitude() == b.getLongitude();
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(date, time, tags, location, creator);
     }
 }

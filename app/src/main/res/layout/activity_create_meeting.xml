@@ -70,41 +70,30 @@
 
             <Button
                 android:id="@+id/btnAddTags"
-                android:layout_width="154dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#d9a737"
                 android:text="Add Tags"
+                android:layout_marginRight="8dp"
                 android:textAllCaps="false"
                 android:textColor="#949398"
                 android:textSize="25dp" />
 
             <Button
-                android:id="@+id/btnShowTags"
-                android:layout_width="151dp"
+                android:id="@+id/btnLocation"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
+                android:layout_marginLeft="8dp"
                 android:background="@drawable/custom_yellow_button"
-                android:text="Show Tags"
+                android:text="Add Location"
                 android:textAllCaps="false"
                 android:textColor="#d9a737"
-                android:textSize="25dp" />
+                android:textSize="25dp"
+                android:onClick="onLocationButtonClick"/>
 
 
         </LinearLayout>
 
-
-        <Button
-            android:id="@+id/btnLocation"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:text="Add Location"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center"
-            android:textAllCaps="false"
-            android:background="@drawable/custom_button"
-            android:textColor="#949398"
-            android:textSize="20sp"
-            android:onClick="onLocationButtonClick"/>
 
         <Button
             android:layout_width="match_parent"
@@ -113,10 +102,10 @@
             android:textSize="19sp"
             android:textAllCaps="false"
             android:id="@+id/btnDone"
-            android:textColor="#d9a737"
+            android:textColor="#949398"
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
-            android:background="@drawable/custom_yellow_button" />
+            android:background="@drawable/custom_button" />
 
         <TextView
             android:id="@+id/tvError"

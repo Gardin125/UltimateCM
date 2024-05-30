@@ -56,18 +56,9 @@ public class JoinCarMeetActivity extends AppCompatActivity {
         }
 
         // Remove car meets that are in currentUser's myCarMeets and othersCarMeets
-//        carMeetArrayList.removeIf(carMeet ->
-//                carMeetEqualsAny(currentUser.getMyCarMeets(), carMeet) ||
-//                    carMeetEqualsAny(currentUser.getOthersCarMeets(), carMeet));
-
-
-        carMeetArrayList.removeIf(carMeet -> {
-            boolean a = carMeetEqualsAny(currentUser.getMyCarMeets(), carMeet);
-            boolean b = carMeetEqualsAny(currentUser.getOthersCarMeets(), carMeet);
-            return a || b;
-        });
-
-
+        carMeetArrayList.removeIf(carMeet ->
+                carMeetEqualsAny(currentUser.getMyCarMeets(), carMeet) ||
+                        carMeetEqualsAny(currentUser.getOthersCarMeets(), carMeet));
 
 
         // Set up the adapter for the ListView
@@ -169,9 +160,10 @@ public class JoinCarMeetActivity extends AppCompatActivity {
         DataManager.updatePeopleList();
 
     }
+
     private boolean carMeetEqualsAny(List<CarMeet> carMeets, CarMeet carMeet) {
         for (CarMeet cm : carMeets)
-            if (cm.equals(carMeet)) return true;
+            if (cm.checkEqualsCarMeet(carMeet)) return true;
         return false;
     }
 }

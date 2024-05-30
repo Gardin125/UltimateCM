@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class CreateCarMeetActivity extends AppCompatActivity {
-    Button btnDone, btnSelectDate, btnSelectTime, btnAddTags, btnShowTags, btnLocation;
+    Button btnDone, btnSelectDate, btnSelectTime, btnAddTags, btnLocation;
     ImageView ivExit;
     TextView tvError;
     int verify = 0;
@@ -67,12 +67,6 @@ public class CreateCarMeetActivity extends AppCompatActivity {
             }
         });
 
-        btnShowTags.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showTagsDialog();
-            }
-        });
 
         btnSelectDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +94,6 @@ public class CreateCarMeetActivity extends AppCompatActivity {
         btnDone = findViewById(R.id.btnDone);
         btnLocation = findViewById(R.id.btnLocation);
         btnAddTags = findViewById(R.id.btnAddTags);
-        btnShowTags = findViewById(R.id.btnShowTags);
         btnSelectTime = findViewById(R.id.btnSelectTime);
         btnSelectDate = findViewById(R.id.btnSelectDate);
         ivExit = findViewById(R.id.ivExit);

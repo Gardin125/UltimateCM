@@ -32,7 +32,7 @@ public class DataChangeService extends Service {
     final String CHANNEL_NAME = "UltimateCM";
     final String CHANNEL_DESC = "MyApp ...";
 
-    public void sendNotification(String txt, String title)
+    public void sendNotification(String title ,String txt)
     {
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -58,12 +58,12 @@ public class DataChangeService extends Service {
        DBManager.getMainRoot().addChildEventListener(new ChildEventListener() {
            @Override
            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                sendNotification("New User Created", "User Created");
+
            }
 
            @Override
            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+                sendNotification("CarMeet Updated!","The Details for the CarMeet that you joined have been changed");
            }
 
            @Override
