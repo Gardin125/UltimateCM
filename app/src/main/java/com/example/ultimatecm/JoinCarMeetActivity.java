@@ -30,7 +30,6 @@ public class JoinCarMeetActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DataManager.pullPeople();
         setContentView(R.layout.activity_join_meeting); // Set the layout for this activity
 
         // Initialize UI elements

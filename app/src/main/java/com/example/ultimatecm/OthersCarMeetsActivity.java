@@ -23,8 +23,6 @@ public class OthersCarMeetsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_others_car_meets);
-        DataManager.pullPeople();
-
         ivExit = findViewById(R.id.ivSecurity);
         lvOthersCM = findViewById(R.id.lvOthersCM);
         currentUser = new Person();

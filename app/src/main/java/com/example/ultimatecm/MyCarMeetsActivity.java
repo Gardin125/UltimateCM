@@ -23,11 +23,11 @@ public class MyCarMeetsActivity extends AppCompatActivity {
     CarMeetAdapter carMeetAdapter;
     Person currentUser;
 
+    ArrayList<CarMeet> currentUserCarMeets;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_car_meets);
-        DataManager.pullPeople();
         ivExit = findViewById(R.id.ivSecurity);
         lvMyCM = findViewById(R.id.lvMyCM);
 
@@ -42,7 +42,8 @@ public class MyCarMeetsActivity extends AppCompatActivity {
         if (currentUser.getMyCarMeets() == null)
             Toast.makeText(this,"Null", Toast.LENGTH_SHORT).show();
         else {
-            carMeetAdapter = new CarMeetAdapter(this, 0, 0, currentUser.getMyCarMeets());
+            currentUserCarMeets = currentUser.getMyCarMeets();
+            carMeetAdapter = new CarMeetAdapter(this, 0, 0, currentUserCarMeets);
             lvMyCM.setAdapter(carMeetAdapter);
         }
 
@@ -76,19 +77,8 @@ public class MyCarMeetsActivity extends AppCompatActivity {
                 int index = currentUser.getMyCarMeets().indexOf(lastSelected);
 
                 if (index != -1) {
-                    // Update the lastSelected object directly from myCMList
-                    lastSelected = currentUser.getMyCarMeets().get(index);
-                    lastSelected.setDate(date);
-                    lastSelected.setTime(time);
-                    lastSelected.setLocation(updatedLocation);
+                   updateSelectedCarMeet(index, date, time, updatedLocation);
 
-                    // Update the database
-                    DataManager.updatePeopleList();
-
-                    // Notify the adapter of the data change
-                    carMeetAdapter.notifyDataSetChanged();
-
-                    Toast.makeText(this, "Data Saved.", Toast.LENGTH_LONG).show();
                 }
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Data Canceled.", Toast.LENGTH_LONG).show();
@@ -103,5 +93,22 @@ public class MyCarMeetsActivity extends AppCompatActivity {
                 username = DataManager.getPeople().get(i).getUsername();
         }
         return username;
+    }
+
+    private void updateSelectedCarMeet(int index, String date, String time, Location updatedLocation) {
+
+        // Update the lastSelected object directly from myCMList
+        lastSelected = currentUserCarMeets.get(index);
+        lastSelected.setDate(date);
+        lastSelected.setTime(time);
+        lastSelected.setLocation(updatedLocation);
+
+        // Update the database
+        DataManager.updatePeopleList();
+
+        // Notify the adapter of the data change
+        carMeetAdapter.notifyDataSetChanged();
+
+        Toast.makeText(this, "Data Saved.", Toast.LENGTH_LONG).show();
     }
 }
