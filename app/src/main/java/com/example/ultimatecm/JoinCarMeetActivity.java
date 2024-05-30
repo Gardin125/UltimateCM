@@ -56,9 +56,17 @@ public class JoinCarMeetActivity extends AppCompatActivity {
         }
 
         // Remove car meets that are in currentUser's myCarMeets and othersCarMeets
-        carMeetArrayList.removeIf(carMeet ->
-                carMeetEqualsAny(currentUser.getMyCarMeets(), carMeet) ||
-                        carMeetEqualsAny(currentUser.getOthersCarMeets(), carMeet));
+//        carMeetArrayList.removeIf(carMeet ->
+//                carMeetEqualsAny(currentUser.getMyCarMeets(), carMeet) ||
+//                    carMeetEqualsAny(currentUser.getOthersCarMeets(), carMeet));
+
+
+        carMeetArrayList.removeIf(carMeet -> {
+            boolean a = carMeetEqualsAny(currentUser.getMyCarMeets(), carMeet);
+            boolean b = carMeetEqualsAny(currentUser.getOthersCarMeets(), carMeet);
+            return a || b;
+        });
+
 
 
 
@@ -162,22 +170,10 @@ public class JoinCarMeetActivity extends AppCompatActivity {
 
     }
     private boolean carMeetEqualsAny(List<CarMeet> carMeets, CarMeet carMeet) {
-        for (CarMeet cm : carMeets) {
-            if (carMeetEquals(cm, carMeet)) {
-                return true;
-            }
-        }
+        for (CarMeet cm : carMeets)
+            if (cm.equals(carMeet)) return true;
         return false;
     }
-
-    private boolean carMeetEquals(CarMeet carMeet1, CarMeet carMeet2) {
-        return carMeet1.getDate().equals(carMeet2.getDate()) &&
-                carMeet1.getTime().equals(carMeet2.getTime()) &&
-                carMeet1.getTags().equals(carMeet2.getTags()) &&
-                carMeet1.getLocation().equals(carMeet2.getLocation()) &&
-                carMeet1.getCreator().equals(carMeet2.getCreator());
-    }
-
 }
 
 

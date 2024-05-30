@@ -80,11 +80,20 @@ public class CarMeet implements Serializable {
             return false;
         }
         CarMeet other = (CarMeet) obj;
-        return Objects.equals(date, other.date) &&
-                Objects.equals(time, other.time) &&
-                Objects.equals(tags, other.tags) &&
-                Objects.equals(location, other.location) &&
-                Objects.equals(creator, other.creator);
+//        return Objects.equals(date, other.date) &&
+//                Objects.equals(time, other.time) &&
+//                Objects.equals(tags, other.tags) &&
+//                Objects.equals(location, other.location) &&
+//                Objects.equals(creator, other.creator);
+        return this.date.equals(other.date) &&
+                this.time.equals(other.time) &&
+                this.tags.equals(other.tags) &&
+                locationsEqual(this.location, other.location) &&
+                this.creator.equals(other.creator);
+    }
+
+    private boolean locationsEqual(Location a, Location b) {
+        return a.getLatitude() == b.getLatitude() && a.getLongitude() == b.getLongitude();
     }
 
     @Override
