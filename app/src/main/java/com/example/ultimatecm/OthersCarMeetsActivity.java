@@ -41,7 +41,6 @@ public class OthersCarMeetsActivity extends AppCompatActivity {
             currentUser.setOthersCarMeets(new ArrayList<>());
         }
 
-
         // Initialize the adapter with the list of car meets
         carMeetAdapter = new CarMeetAdapter(this, 0, 0, currentUser.getOthersCarMeets());
         lvOthersCM.setAdapter(carMeetAdapter);

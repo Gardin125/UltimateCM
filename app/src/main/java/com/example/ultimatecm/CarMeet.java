@@ -11,6 +11,7 @@ public class CarMeet implements Serializable {
     private Location location;
     private String creator;
     private int participants;
+    private int id;
 
     public CarMeet(String date, String time, ArrayList<String> tags, Location location, String creator) {
         this.date = date;
@@ -19,9 +20,18 @@ public class CarMeet implements Serializable {
         this.location = location;
         this.creator = creator;
         this.participants = 0;
+        this.id = DataManager.id += 1;
     }
 
     public CarMeet() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDate() {

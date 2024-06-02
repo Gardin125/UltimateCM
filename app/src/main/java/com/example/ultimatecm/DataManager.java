@@ -16,6 +16,8 @@ public class DataManager {
     private static ArrayList<Person> people;
 
     static final String dbMainList = "people";
+    public static int id = 0;
+
 
     public static ArrayList<Person> getPeople() {
         if (people == null)
@@ -52,7 +54,26 @@ public class DataManager {
     public static void updatePeopleList() {
         getMainRoot().child(dbMainList).setValue(people);
     }
+    public static void updateCarMeetInDB(ArrayList<CarMeet> myCM, CarMeet cm) {
+        for (CarMeet carMeet: myCM) {
+            if (carMeet.getId() == cm.getId()) {
+                cm.setDate(carMeet.getDate());
+                cm.setTime(carMeet.getTime());
+                cm.setLocation(carMeet.getLocation());
+            }
+        }
 
+        updatePeopleList();
+    }
+    public static ArrayList<CarMeet> getAllJoinedCarMeetInApp() {
+        ArrayList<CarMeet> allJoinedCarMeetsInDB = new ArrayList<>();
+        for (Person p: DataManager.getPeople()) {
+            for (CarMeet myCm: p.getMyCarMeets()) {
+                allJoinedCarMeetsInDB.add(myCm);
+            }
+        }
+        return allJoinedCarMeetsInDB;
+    }
 
     public static Person getCurrentLoggedInPersonByEmail(String email) {
         if (people != null) {

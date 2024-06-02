@@ -77,8 +77,10 @@ public class MyCarMeetsActivity extends AppCompatActivity {
                 int index = currentUser.getMyCarMeets().indexOf(lastSelected);
 
                 if (index != -1) {
-                   updateSelectedCarMeet(index, date, time, updatedLocation);
-
+                    updateSelectedCarMeet(index, date, time, updatedLocation);
+                    for (int i = 0; i < DataManager.getAllJoinedCarMeetInApp().size(); i++) {
+                        DataManager.updateCarMeetInDB(currentUser.getMyCarMeets(), DataManager.getAllJoinedCarMeetInApp().get(i));
+                    }
                 }
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Data Canceled.", Toast.LENGTH_LONG).show();
