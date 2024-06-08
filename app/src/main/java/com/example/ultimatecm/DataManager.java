@@ -54,6 +54,26 @@ public class DataManager {
     public static void updatePeopleList() {
         getMainRoot().child(dbMainList).setValue(people);
     }
+
+    public static void updateCarMeetEverywhere(CarMeet updatedCarMeet) {
+        for (Person person : getPeople()) {
+            boolean updated = false;
+            for (CarMeet carMeet : person.getMyCarMeets()) {
+                if (carMeet.getId() == updatedCarMeet.getId()) {
+                    carMeet.setDate(updatedCarMeet.getDate());
+                    carMeet.setTime(updatedCarMeet.getTime());
+                    carMeet.setLocation(updatedCarMeet.getLocation());
+                    updated = true;
+                }
+            }
+            if (updated) {
+                updatePeopleList();
+
+                // If any car meet was updated for this person, update the person's data in the database
+                // getMainRoot().child(dbMainList).child(person.getId()).setValue(person);
+            }
+        }
+    }
     public static void updateCarMeetInDB(ArrayList<CarMeet> myCM, CarMeet cm) {
         for (CarMeet carMeet: myCM) {
             if (carMeet.getId() == cm.getId()) {

@@ -78,14 +78,28 @@ public class MyCarMeetsActivity extends AppCompatActivity {
 
                 if (index != -1) {
                     updateSelectedCarMeet(index, date, time, updatedLocation);
-                    for (int i = 0; i < DataManager.getAllJoinedCarMeetInApp().size(); i++) {
-                        DataManager.updateCarMeetInDB(currentUser.getMyCarMeets(), DataManager.getAllJoinedCarMeetInApp().get(i));
-                    }
+                    DataManager.updateCarMeetEverywhere(lastSelected);
                 }
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Data Canceled.", Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    private void updateSelectedCarMeet(int index, String date, String time, Location updatedLocation) {
+        // Update the lastSelected object directly from myCMList
+        lastSelected = currentUserCarMeets.get(index);
+        lastSelected.setDate(date);
+        lastSelected.setTime(time);
+        lastSelected.setLocation(updatedLocation);
+
+        // Update the current user's list
+        DataManager.updatePeopleList();
+
+        // Notify the adapter of the data change
+        carMeetAdapter.notifyDataSetChanged();
+
+        Toast.makeText(this, "Data Saved.", Toast.LENGTH_LONG).show();
     }
 
     public String getUsername() {
@@ -97,20 +111,4 @@ public class MyCarMeetsActivity extends AppCompatActivity {
         return username;
     }
 
-    private void updateSelectedCarMeet(int index, String date, String time, Location updatedLocation) {
-
-        // Update the lastSelected object directly from myCMList
-        lastSelected = currentUserCarMeets.get(index);
-        lastSelected.setDate(date);
-        lastSelected.setTime(time);
-        lastSelected.setLocation(updatedLocation);
-
-        // Update the database
-        DataManager.updatePeopleList();
-
-        // Notify the adapter of the data change
-        carMeetAdapter.notifyDataSetChanged();
-
-        Toast.makeText(this, "Data Saved.", Toast.LENGTH_LONG).show();
-    }
 }
