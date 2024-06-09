@@ -16,8 +16,11 @@ public class DataManager {
     private static ArrayList<Person> people;
 
     static final String dbMainList = "people";
-    public static int id = 0;
+    private static int nextCarMeetId = 0; // Track the next available ID
 
+    public static int getNextCarMeetId() {
+        return nextCarMeetId += 1;
+    }
 
     public static ArrayList<Person> getPeople() {
         if (people == null)
@@ -58,7 +61,7 @@ public class DataManager {
     public static void updateCarMeetEverywhere(CarMeet updatedCarMeet) {
         for (Person person : getPeople()) {
             boolean updated = false;
-            for (CarMeet carMeet : person.getMyCarMeets()) {
+            for (CarMeet carMeet : person.getOthersCarMeets()) {
                 if (carMeet.getId() == updatedCarMeet.getId()) {
                     carMeet.setDate(updatedCarMeet.getDate());
                     carMeet.setTime(updatedCarMeet.getTime());
