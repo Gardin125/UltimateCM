@@ -181,6 +181,7 @@ public class CreateCarMeetActivity extends AppCompatActivity {
 
         dialog.show();
     }
+
     private void updateSelectedTags() {
         selectedTagsList.clear(); // Clear the ArrayList
 
@@ -253,10 +254,12 @@ public class CreateCarMeetActivity extends AppCompatActivity {
     public class SetYourTime implements TimePickerDialog.OnTimeSetListener {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            String str = hourOfDay + ":" + minute;
+            String strMinute = String.format("%02d", minute);
+            String str = hourOfDay + ":" + strMinute;
             btnSelectTime.setText(str);
         }
     }
+
 
     public String getUsername() {
         String username = "";
