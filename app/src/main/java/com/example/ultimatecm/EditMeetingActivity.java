@@ -158,7 +158,8 @@ public class EditMeetingActivity extends AppCompatActivity {
     public class SetYourTime implements TimePickerDialog.OnTimeSetListener {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            String str = hourOfDay + ":" + minute;
+            String strMinute = String.format("%02d", minute);
+            String str = hourOfDay + ":" + strMinute;
             btnTime.setText(str);
         }
     }
