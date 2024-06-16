@@ -55,7 +55,8 @@ public class DataChangeService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-       DBManager.getMainRoot().child("othersCarMeets").addChildEventListener(new ChildEventListener() {
+        String currentIndex = Integer.toString(DBManager.getCurrentIndex());
+       DBManager.getMainRoot().child(currentIndex).child("othersCarMeets").addChildEventListener(new ChildEventListener() {
            @Override
            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
