@@ -14,6 +14,7 @@ import androidx.core.app.NotificationCompat;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 
 public class DataChangeService extends Service {
     public DataChangeService() {
@@ -31,6 +32,8 @@ public class DataChangeService extends Service {
     final String CHANNEL_ID = "UltimateCM";
     final String CHANNEL_NAME = "UltimateCM";
     final String CHANNEL_DESC = "MyApp ...";
+    private String username;
+    private String index;
 
     public void sendNotification(String title ,String txt)
     {
@@ -53,35 +56,42 @@ public class DataChangeService extends Service {
     }
 
 
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        String currentIndex = Integer.toString(DBManager.getCurrentIndex());
-       DBManager.getMainRoot().child(currentIndex).child("othersCarMeets").addChildEventListener(new ChildEventListener() {
-           @Override
-           public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+        if (intent.hasExtra("USERNAME")) {
+            username = intent.getStringExtra("USERNAME");
+        }
+            index = String.valueOf(DataManager.getCurrentIndex(username));
 
-           }
+        DatabaseReference othersCarMeetsRef = (DatabaseReference) DBManager.getMainRoot().child(index).child("othersCarMeets").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
-           @Override
-           public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                sendNotification("CarMeet Updated!","The Details for the CarMeet that you joined have been changed");
-           }
+            }
 
-           @Override
-           public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                sendNotification("CarMeet updated!", "A CarMeet that you signed in to have been updated!");
+            }
 
-           }
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
 
-           @Override
-           public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            }
 
-           }
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
-           @Override
-           public void onCancelled(@NonNull DatabaseError error) {
+            }
 
-           }
-       });
-       return START_STICKY;
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        return super.onStartCommand(intent, flags, startId);
     }
+
 }

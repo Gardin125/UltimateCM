@@ -119,6 +119,15 @@ public class DataManager {
         }
         return null;
     }
+    public static int getCurrentIndex(String username) {
+        int cnt = 0;
+        for (int i = 0; i < getPeople().size(); i++) {
+            if (getPeople().get(i).getUsername().equalsIgnoreCase(username))
+                return cnt;
+            cnt++;
+        }
+        return -1;
+    }
 }
 
 

@@ -97,9 +97,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Intent intent = new Intent(LoginActivity.this, DataChangeService.class);
-        startService(intent);
-
         DataManager.pullPeople();
     }
 

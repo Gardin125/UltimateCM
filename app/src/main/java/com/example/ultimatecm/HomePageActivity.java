@@ -19,6 +19,10 @@ public class HomePageActivity extends AppCompatActivity{
         TextView tvMsg = findViewById(R.id.tvWelcomeMsg);
         tvMsg.setText("Welcome! " + getUsername() + ".");
 
+        Intent intent = new Intent(getApplicationContext(), DataChangeService.class);
+        intent.putExtra("USERNAME", getUsername());
+        startService(intent);
+
         // Initialize the BottomNavigationView and set the listener
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(item -> {

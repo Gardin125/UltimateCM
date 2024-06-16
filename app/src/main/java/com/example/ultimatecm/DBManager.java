@@ -35,14 +35,5 @@ public class DBManager {
         return getDb().getReference("people");
     }
 
-    public static int getCurrentIndex() {
-        int cnt = 0;
-        for (int i = 0; i < DataManager.getPeople().size(); i++) {
-            if (DataManager.getPeople().get(i).getEmail() == getCurrentUserEmail()) {
-                return cnt;
-            } else
-                cnt++;
-        }
-        return cnt;
-    }
+
 }
