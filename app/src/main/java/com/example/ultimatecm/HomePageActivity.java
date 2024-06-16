@@ -54,6 +54,7 @@ public class HomePageActivity extends AppCompatActivity{
         startActivity(intent);
         finish();
 
+
     }
     public String getUsername() {
         String username = "";
