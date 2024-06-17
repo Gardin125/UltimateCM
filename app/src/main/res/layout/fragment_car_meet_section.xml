@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#949398"
+    android:background="#818083"
     tools:context=".CarMeetSectionFragment">
 
     <!-- Three Parts: Left, Middle, and Right -->
@@ -87,7 +87,7 @@
                 android:text="Create"
                 android:background="@drawable/custom_button"
                 android:textAllCaps="false"
-                android:textColor="#949398"
+                android:textColor="#818083"
                 android:textSize="18sp" />
 
             <Button
@@ -127,7 +127,7 @@
                 android:text="Joined CM"
                 android:background="@drawable/custom_button"
                 android:textAllCaps="false"
-                android:textColor="#949398"
+                android:textColor="#818083"
                 android:textSize="18sp" />
 
 

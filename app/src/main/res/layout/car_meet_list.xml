@@ -8,7 +8,7 @@
     android:paddingTop="16dp"
     android:id="@+id/ll"
     android:orientation="vertical"
-    android:background="#949398" >
+    android:background="#818083" >
 
     <TextView
         android:layout_width="wrap_content"

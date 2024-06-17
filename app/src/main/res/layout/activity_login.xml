@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#949398"
+    android:background="#818083"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".LoginActivity">
@@ -57,7 +57,7 @@
             android:background="@drawable/custom_button"
             android:text="Login"
             android:textAllCaps="false"
-            android:textColor="#949398"
+            android:textColor="#818083"
             android:textSize="18sp" />
 
         <Button

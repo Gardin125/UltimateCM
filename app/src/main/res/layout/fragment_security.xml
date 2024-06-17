@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#949398"
+    android:background="#818083"
     android:padding="16dp"
     tools:context=".SecurityFragment">
 
@@ -28,7 +28,7 @@
         android:text="Reset Password"
         android:layout_marginTop="100dp"
         android:backgroundTint="#d9a737"
-        android:textColor="#949398"
+        android:textColor="#818083"
         android:textAllCaps="false"
         android:textSize="20dp"
 
@@ -43,7 +43,7 @@
         android:backgroundTint="#d9a737"
         android:textAllCaps="false"
         android:textSize="20dp"
-        android:textColor="#949398"
+        android:textColor="#818083"
         android:layout_marginBottom="16dp"/>
 
 

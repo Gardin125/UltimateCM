@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#949398"
+    android:background="#818083"
     tools:context=".CreateCarMeetActivity">
 
     <ImageView
@@ -59,7 +59,7 @@
                 android:backgroundTint="#d9a737"
                 android:text="Select Time"
                 android:textAllCaps="false"
-                android:textColor="#949398"
+                android:textColor="#818083"
                 android:textSize="25dp" />
         </LinearLayout>
 
@@ -76,7 +76,7 @@
                 android:text="Add Tags"
                 android:layout_marginRight="8dp"
                 android:textAllCaps="false"
-                android:textColor="#949398"
+                android:textColor="#818083"
                 android:textSize="25dp" />
 
             <Button
@@ -102,7 +102,7 @@
             android:textSize="19sp"
             android:textAllCaps="false"
             android:id="@+id/btnDone"
-            android:textColor="#949398"
+            android:textColor="#818083"
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
             android:background="@drawable/custom_button" />

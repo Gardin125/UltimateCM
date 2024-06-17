@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="#949398"
+    android:background="#818083"
     android:orientation="vertical">
 
     <LinearLayout
@@ -75,5 +75,5 @@
         android:textAllCaps="false"
         android:layout_marginTop="10dp"
         android:backgroundTint="#d9a737"
-        android:textColor="#949398"/>
+        android:textColor="#818083"/>
 </LinearLayout>

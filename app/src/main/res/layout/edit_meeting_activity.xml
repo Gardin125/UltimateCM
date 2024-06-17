@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#949398"
+    android:background="#818083"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -18,7 +18,7 @@
             android:background="@drawable/custom_button"
             android:text="Select Date"
             android:textAllCaps="false"
-            android:textColor="#949398" />
+            android:textColor="#818083" />
 
         <Button
             android:id="@+id/btnTime"
@@ -62,7 +62,7 @@
         android:background="@drawable/custom_button"
         android:text="Save"
         android:textAllCaps="false"
-        android:textColor="#949398"
+        android:textColor="#818083"
         android:textSize="20sp" />
 
     <Button
