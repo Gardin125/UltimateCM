@@ -59,12 +59,13 @@ public class DataChangeService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (intent.hasExtra("USERNAME")) {
+        if (intent != null && intent.hasExtra("USERNAME")) {
             username = intent.getStringExtra("USERNAME");
         }
-            index = String.valueOf(DataManager.getCurrentIndex(username));
+        index = String.valueOf(DataManager.getCurrentIndex(username));
 
-        DatabaseReference othersCarMeetsRef = (DatabaseReference) DBManager.getMainRoot().child(index).child("othersCarMeets").addChildEventListener(new ChildEventListener() {
+        // Attach ChildEventListener directly without attempting to cast the return value
+        DBManager.getMainRoot().child(index).child("othersCarMeets").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
@@ -91,7 +92,8 @@ public class DataChangeService extends Service {
             }
         });
 
-        return super.onStartCommand(intent, flags, startId);
+        return START_STICKY; // Or another appropriate return value
     }
+
 
 }
