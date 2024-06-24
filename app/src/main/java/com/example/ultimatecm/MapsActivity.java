@@ -64,9 +64,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     returnIntent.putExtra("picked_point", latLng);
                     returnIntent.putExtra("VERIFY", 1);
                     setResult(Activity.RESULT_OK, returnIntent);
-                    if (fromCreateCarMeet) {
-                        finish(); // Close the MapsActivity only if it was started from CreateCarMeetActivity
-                    }
+                    finish(); // Close the MapsActivity regardless of which activity started it
                 }
             });
         } else {
@@ -83,4 +81,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(carMeetLocation, 15));
         }
     }
+
 }

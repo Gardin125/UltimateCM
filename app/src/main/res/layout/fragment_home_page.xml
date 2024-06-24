@@ -18,14 +18,40 @@
         android:layout_gravity="center|top"
         android:layout_marginTop="150dp"/>
 
-    <TextView
+    <!-- Image and Overlay Group -->
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Use the bottom navigator to move between the sections"
-        android:textAlignment="center"
-        android:textColor="#d9a737"
-        android:textSize="30dp"
-        android:layout_gravity="center"
-        />
+        android:layout_centerInParent="true"
+        android:layout_gravity="center">
+
+        <!-- Add TextView for Text on the Image -->
+
+        <ImageView
+            android:id="@+id/ivBackground"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:src="@drawable/lamboimage" />
+
+        <!-- Overlay View -->
+        <View
+            android:id="@+id/overlay"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_gravity="center"
+            android:background="#8F000000" />
+
+        <TextView
+            android:id="@+id/tvOverlayText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:text="Use the bottom navigator to move between the sections."
+            android:textAlignment="center"
+            android:textColor="#d9a737"
+            android:textSize="24sp" />
+
+    </FrameLayout>
 
 </FrameLayout>
