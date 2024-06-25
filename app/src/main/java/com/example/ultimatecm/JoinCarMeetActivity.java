@@ -161,11 +161,22 @@ public class JoinCarMeetActivity extends AppCompatActivity {
 
     }
 
-    private boolean carMeetEqualsAny(List<CarMeet> carMeets, CarMeet carMeet) {
-        for (CarMeet cm : carMeets)
-            if (cm.checkEqualsCarMeet(carMeet)) return true;
+    private boolean carMeetEqualsAny(ArrayList<CarMeet> carMeets, CarMeet otherCarMeet) {
+        // Check if carMeets ArrayList is null
+        if (carMeets == null) {
+            return false; // or handle the null case appropriately
+        }
+
+        // Example: checking if otherCarMeet exists in carMeets
+        for (CarMeet cm : carMeets) {
+            if (cm.equals(otherCarMeet)) { // Assuming CarMeet has overridden equals method
+                return true;
+            }
+        }
+
         return false;
     }
+
 }
 
 

@@ -64,36 +64,42 @@ public class DataChangeService extends Service {
         }
         index = String.valueOf(DataManager.getCurrentIndex(username));
 
-        // Attach ChildEventListener directly without attempting to cast the return value
-        DBManager.getMainRoot().child(index).child("othersCarMeets").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+        DatabaseReference carMeetsRef = DBManager.getMainRoot().child(index).child("othersCarMeets");
+        if (carMeetsRef != null) {
+            carMeetsRef.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                    // Handle child added event
+                }
 
-            }
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                    // Handle child changed event
+                    sendNotification("CarMeet updated!", "A CarMeet that you signed in to has been updated!");
+                }
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                sendNotification("CarMeet updated!", "A CarMeet that you signed in to have been updated!");
-            }
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                    // Handle child removed event
+                }
 
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                    // Handle child moved event
+                }
 
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Handle database error
+                }
+            });
+        } else {
+            // Handle case where carMeetsRef is null or invalid
+        }
 
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        return START_STICKY; // Or another appropriate return value
+        return START_STICKY;
     }
+
 
 
 }
