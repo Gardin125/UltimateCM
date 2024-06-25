@@ -5,4 +5,6 @@
     <color name="icon_tint_color">#d9a737</color>
     <color name="red">#FF0000</color>
     <color name="green">#379937</color>
+    <color name="button_color">#818083</color>
+
 </resources>

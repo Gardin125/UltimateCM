@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -63,90 +62,61 @@ public class PersonalInfoFragment extends Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String firstName = etFirstName.getText().toString();
-                String lastName = etLastName.getText().toString();
-                String username = etUsername.getText().toString();
-                boolean validFN, validLN, validUN;
-                validFN = firstName.length() >= 3 && !containsNumber(firstName);
-                validLN = lastName.length() >= 3 && !containsNumber(lastName);
-                validUN = username.length() >= 4 && !containsSpecialCharacter(username);
+                String firstName = etFirstName.getText().toString().trim();
+                String lastName = etLastName.getText().toString().trim();
+                String username = etUsername.getText().toString().trim();
 
-                boolean usernameAlrExist = false;
-                for (Person p : DataManager.getPeople()) {
-                    if (p.getUsername().equalsIgnoreCase(username)) {
-                        usernameAlrExist = true;
-                        break;
+                if (validateInputs(firstName, lastName, username)) {
+                    if (usernameAlrExists(username)) {
+                        showAlert("Failed to update.", "Username already exists in the system. Please choose another one.");
+                    } else {
+                        updateUserInfo(firstName, lastName, username);
+                        showAlert("Updated!", "Personal Info Updated.");
                     }
-                }
-
-                boolean validAll = validFN && validLN && validUN;
-
-                if (validAll) {
-                    Person currentUser = getLoggedInPerson();
-                    currentUser.setFirstName(firstName);
-                    currentUser.setLastName(lastName);
-                    currentUser.setUsername(username);
-                    DataManager.updatePeopleList();
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setTitle("Updated!");
-                    builder.setMessage("Personal Info Updated.");
-                    builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    builder.create().show();
-
-                } else if (usernameAlrExist) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setTitle("Failed to update.");
-                    builder.setMessage("Personal Info failed to update. Username is already exists in the system. Please change it.");
-                    builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    builder.create().show();
-                } else if (!validFN) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setTitle("Failed to update.");
-                    builder.setMessage("Personal Info failed to update. First name might contain numbers or too short.");
-                    builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    builder.create().show();
-                } else if (!validLN) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setTitle("Failed to update.");
-                    builder.setMessage("Personal Info failed to update. Last name might contain numbers or too short.");
-                    builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    builder.create().show();
-                } else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setTitle("Failed to update.");
-                    builder.setMessage("Personal Info failed to update. Username might contain special characters or too short.");
-                    builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    builder.create().show();
                 }
             }
         });
 
         return view;
+    }
+
+    private void updateUserInfo(String firstName, String lastName, String username) {
+        Person currentUser = getLoggedInPerson();
+        if (currentUser != null) {
+            currentUser.setFirstName(firstName);
+            currentUser.setLastName(lastName);
+            currentUser.setUsername(username);
+            DataManager.updatePeopleList();
+        }
+    }
+
+    private boolean validateInputs(String firstName, String lastName, String username) {
+        if (firstName.length() < 3 || containsNumber(firstName)) {
+            showAlert("Failed to update.", "First name must be at least 3 characters long and must not contain numbers.");
+            return false;
+        }
+        if (lastName.length() < 3 || containsNumber(lastName)) {
+            showAlert("Failed to update.", "Last name must be at least 3 characters long and must not contain numbers.");
+            return false;
+        }
+        if (username.length() < 4 || containsSpecialCharacter(username)) {
+            showAlert("Failed to update.", "Username must be at least 4 characters long and must not contain special characters.");
+            return false;
+        }
+        return true;
+    }
+
+    private void showAlert(String title, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
     }
 
     public Person getLoggedInPerson() {
@@ -170,5 +140,14 @@ public class PersonalInfoFragment extends Fragment {
         Pattern pattern = Pattern.compile("[!@#$%^&*()_+\\-={}|:\"<>?\\[\\]\\\\;',./]");
         Matcher matcher = pattern.matcher(str);
         return matcher.find();
+    }
+
+    public static boolean usernameAlrExists(String username) {
+        for (Person p : DataManager.getPeople()) {
+            if (p.getUsername().equalsIgnoreCase(username)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
