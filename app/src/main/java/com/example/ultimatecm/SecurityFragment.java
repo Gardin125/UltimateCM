@@ -32,7 +32,7 @@ public class SecurityFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_security, container, false);
-
+        currentUser = DBManager.getAuth().getCurrentUser();
         btnPasswordReset = view.findViewById(R.id.btnPasswordReset);
         btnPasswordReset.setOnClickListener(new View.OnClickListener() {
             @Override
