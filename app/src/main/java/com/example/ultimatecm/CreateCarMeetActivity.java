@@ -25,30 +25,30 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class CreateCarMeetActivity extends AppCompatActivity {
-    Button btnDone, btnSelectDate, btnSelectTime, btnAddTags, btnLocation;
-    ImageView ivExit;
-    TextView tvError;
-    int verify = 0;
-    CarMeet carMeet;
-    Location location;
-    private ArrayList<String> selectedTagsList = new ArrayList<>();
-    private boolean[] tagCheckedState = new boolean[6]; // 6 tags
-    private static final int PICK_MAP_POINT_REQUEST = 999; // The request code
+    Button btnDone, btnSelectDate, btnSelectTime, btnAddTags, btnLocation; // Declare buttons
+    ImageView ivExit; // Declare ImageView
+    TextView tvError; // Declare TextView
+    int verify = 0; // Verification flag
+    CarMeet carMeet; // Declare CarMeet object
+    Location location; // Declare Location object
+    private ArrayList<String> selectedTagsList = new ArrayList<>(); // List to store selected tags
+    private boolean[] tagCheckedState = new boolean[6]; // Array to track tag checkbox states (6 tags)
+    private static final int PICK_MAP_POINT_REQUEST = 999; // Request code for map point selection
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_meeting);
+        super.onCreate(savedInstanceState); // Call to superclass onCreate method
+        setContentView(R.layout.activity_create_meeting); // Set the activity layout
 
-        initializeViews();
+        initializeViews(); // Initialize UI elements
 
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (validateInputs()) {
-                    createCarMeet();
-                    DataManager.updatePeopleList();
-                    finish();
+                if (validateInputs()) { // Validate user inputs
+                    createCarMeet(); // Create a new CarMeet object
+                    DataManager.updatePeopleList(); // Update the list of people
+                    finish(); // Finish the activity
                 }
             }
         });
@@ -56,38 +56,32 @@ public class CreateCarMeetActivity extends AppCompatActivity {
         btnLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pickPointOnMap();
+                pickPointOnMap(); // Start map activity to pick a location
             }
         });
 
         btnAddTags.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showTagsDialog();
+                showTagsDialog(); // Show dialog to add tags
             }
         });
-
 
         btnSelectDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createDateDialog();
+                createDateDialog(); // Show date picker dialog
             }
         });
 
         btnSelectTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createTimeDialog();
+                createTimeDialog(); // Show time picker dialog
             }
         });
 
-        ivExit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        ivExit.setOnClickListener(v -> finish()); // Finish the activity
     }
 
     private void initializeViews() {
