@@ -91,12 +91,12 @@ public class PersonalInfoFragment extends Fragment {
     }
 
     private boolean validateInputs(String firstName, String lastName, String username) {
-        if (firstName.length() < 3 || containsNumber(firstName)) {
-            showAlert("Failed to update.", "First name must be at least 3 characters long and must not contain numbers.");
+        if (firstName.length() < 3 || containsNumber(firstName) || containsSpecialCharacter(firstName)) {
+            showAlert("Failed to update.", "First name must be at least 3 characters long and must not contain numbers or special characters.");
             return false;
         }
-        if (lastName.length() < 3 || containsNumber(lastName)) {
-            showAlert("Failed to update.", "Last name must be at least 3 characters long and must not contain numbers.");
+        if (lastName.length() < 3 || containsNumber(lastName) || containsSpecialCharacter(lastName)) {
+            showAlert("Failed to update.", "Last name must be at least 3 characters long and must not contain numbers special characters.");
             return false;
         }
         if (username.length() < 4 || containsSpecialCharacter(username)) {
